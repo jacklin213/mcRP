@@ -12,11 +12,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class DamageListener implements Listener {
 	public static mcRP plugin;
 
-	  public DamageListener(mcRP instance)
-	  {
-	    plugin = instance;
-	  }
-	
+	  	public DamageListener(mcRP plugin) {
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+    
 	@EventHandler(priority = EventPriority.HIGH)
 	public void OnEntityDamageByEntity(Entity damager, Entity damagee,
 			EntityDamageEvent.DamageCause cause, int damage) {
