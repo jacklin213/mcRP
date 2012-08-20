@@ -1,9 +1,5 @@
 package me.jacklin213.mcrp;
 
-import net.milkycraft.Scheduler.Scheduler;
-import net.milkycraft.Utility.PlayerTimer;
-import net.milkycraft.Utility.Time;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -134,26 +130,9 @@ public class CommandListener implements CommandExecutor {
 					+ "+-----------------------------------+");
 			return true;
 		}
-		else if(commandLabel.equalsIgnoreCase("superspeed")){
-			Player p = (Player) sender;
-			if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-				p.sendMessage(ChatColor.YELLOW + "You have to wait " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " seconds before you can use MegaJump again");
-			
-			}
-			
-			else {
-			
-			p.sendMessage(ChatColor.GRAY + "SuperSpeed ability activated");
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
-			Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
-					PlayerTimer.addToCooldown(1, (long) 1000);
-			}
-			
-		}
 
 		return false;
 	}
-
 
 	// end of commandexecutor class
 }
