@@ -6,15 +6,19 @@ authors: [TickleNinja]
 
 main: me.jacklin213.mcrp.mcRP
 commands:
-<<<<<<< HEAD
+#<<<<<<< HEAD
   test:
     description: test
   test2:
     description: test
 #=======
+#Im pretty sure you only need mcRP and not the rest of it. Thats how I did it on my lotto plugin
   mcRP:
     description: Displays info on mcRP
     usage: Correct usage /mcRP
+  superspeed:
+    description: SuperJump Ability
+    usage: Correct usage /superspeed
   mcRP test:
     description: test
   mcRP test2:
