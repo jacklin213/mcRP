@@ -5,18 +5,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class CommandListener implements CommandExecutor {
 	mcRP plugin;
-  
-    public CommandListener(mcRP instance) {
+
+	public CommandListener(mcRP instance) {
 		plugin = instance;
 	}
-    //define variables from main class
-    PluginDescriptionFile pdfFile = mcRP.pdfFile;
+
+	// define variables from main class
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd,
@@ -38,38 +37,52 @@ public class CommandListener implements CommandExecutor {
 					} else {
 						this.plugin.CreateConfig();
 						this.plugin.reloadConfig();
-						this.plugin.getLogger().info(
-								pdfFile.getName()
-										+ " Config reloaded!");
+						this.plugin.getLogger().info("Config reloaded!");
 						return true;
 					}
 				}
 				if (args[0].equalsIgnoreCase("test")) {
-					Player p = (Player) sender;
-					p.setHealth(6);
-					p.sendMessage("works");
-					return true;
-				}// end of test
-
-				if (commandLabel.equalsIgnoreCase("test2")) {
-					Player p = (Player) sender;
-					if (p.getHealth() <= 5) {
-						p.addPotionEffect(new PotionEffect(
-								PotionEffectType.POISON, 200, 1));
+					if (sender instanceof Player) {
+						Player p = (Player) sender;
+						p.setHealth(6);
 						p.sendMessage("works");
 						return true;
 					} else {
-						p.sendMessage("You have too much hp");
+						sender.sendMessage(ChatColor.RED
+								+ "You are not a Player!");
 						return true;
 					}
-				} else {
-					sender.sendMessage(ChatColor.RED + "Not a valid command!");
+				}// end of test
+
+				if (args[0].equalsIgnoreCase("test2")) {
+					if (!(sender instanceof Player)) {
+						sender.sendMessage(ChatColor.RED
+								+ "You are not a Player!");
+						return true;
+					} else {
+						Player p = (Player) sender;
+						if (p.getHealth() <= 5) {
+							p.addPotionEffect(new PotionEffect(
+									PotionEffectType.POISON, 200, 1));
+							p.sendMessage("works");
+							return true;
+						} else {
+							p.sendMessage("You have too much hp");
+							return true;
+						}
+					}
 				}// end of test 2
+				return false;
+
 			}// end of args.length == 0
 
-			if (args.length >= 1) {
+			if (args.length > 1) {
 				if (args[0].equalsIgnoreCase("set")) {
-					// set messsage commands
+					if (args.length < 1) {
+						sender.sendMessage(ChatColor.RED
+								+ "Not a valid command !");
+						return true;
+					}
 					if (args[1].equalsIgnoreCase("welcomemessage")
 							|| args[1].equalsIgnoreCase("wm")) {
 						if (!(sender.hasPermission("mcRP.setwelcomemessage"))) {
@@ -99,25 +112,24 @@ public class CommandListener implements CommandExecutor {
 						}
 
 					}
-				} else {
-					sender.sendMessage(ChatColor.RED + "Not a valid command !");
-					return false;
+
 				}
+				return false;
+
 			}
+			// set messsage commands
+
 			sender.sendMessage(ChatColor.DARK_GREEN
-					+ "+------------------------------+");
-			sender.sendMessage(ChatColor.DARK_AQUA
-					+ "      mcRP: Lightweight version of MCMMO!");
-			sender.sendMessage(ChatColor.GREEN + "      By jacklin213, TinkleNinja");
-			sender.sendMessage(ChatColor.YELLOW + "      Version: "
-					+ pdfFile.getVersion());
+					+ "+-----------------------------------+");
+			sender.sendMessage(ChatColor.RED + "mcRP:" + ChatColor.GRAY
+					+ " Lightweight version of MCMMO!");
+			sender.sendMessage(ChatColor.GREEN + "By jacklin213, TickleNinja");
+			sender.sendMessage(ChatColor.GOLD + "Version: "
+					+ this.plugin.pdfFile.getVersion());
 			sender.sendMessage(ChatColor.DARK_GREEN
-					+ "+------------------------------+");
-			return true;	
+					+ "+-----------------------------------+");
+			return true;
 		}
-		
-			
-		
 
 		return false;
 	}
