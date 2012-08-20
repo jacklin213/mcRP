@@ -17,7 +17,7 @@ public class mcRP extends JavaPlugin {
 	public void onEnable() {
 		this.pdfFile = getDescription();
 		this.getLogger().info(this.pdfFile.getName() +this.pdfFile.getVersion()
-				+ " By jacklin213 & TickleNinja is now enabled!.");
+				+ " By jacklin213 & PineAbe is now enabled!.");
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(this.dl, this);
 		pm.registerEvents(this.pl, this);
