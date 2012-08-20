@@ -11,7 +11,7 @@ commands:
     description: test
   test2:
     description: test
-=======
+#=======
   mcRP:
     description: Displays info on mcRP
     usage: Correct usage /mcRP
@@ -43,4 +43,4 @@ permissions:
   mcRP.reload:
     description: Allows people to reload config
     default: op
->>>>>>> Updated everything
+#>>>>>>> Updated everything
