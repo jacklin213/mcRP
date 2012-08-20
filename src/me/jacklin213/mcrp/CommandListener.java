@@ -1,5 +1,9 @@
 package me.jacklin213.mcrp;
 
+import net.milkycraft.Scheduler.Scheduler;
+import net.milkycraft.Utility.PlayerTimer;
+import net.milkycraft.Utility.Time;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -130,6 +134,21 @@ public class CommandListener implements CommandExecutor {
 					+ "+-----------------------------------+");
 			return true;
 		}
+		//SuperJump - I just figured out how to make this a method and still have Player p. Will do that tommorow so we can take this out of our class
+		else if(commandLabel.equalsIgnoreCase("superspeed")){
+			Player p = (Player) sender;
+			if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
+				p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+			}
+			else{
+	            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	            p.sendMessage(ChatColor.GRAY + "You have activated your super speed ability");
+	            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
+			}
+			
+			
+		}
+		
 
 		return false;
 	}
