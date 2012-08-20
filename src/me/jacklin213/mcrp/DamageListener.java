@@ -11,7 +11,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class DamageListener implements Listener {
 	public static mcRP plugin;
 
+<<<<<<< HEAD
 	public DamageListener(mcRP instance){
+=======
+	public DamageListener(mcRP instance) {
+>>>>>>> Updated everything
 		plugin = instance;
 	}
 
@@ -19,7 +23,12 @@ public class DamageListener implements Listener {
 	public void OnEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Player d = (Player) event.getEntity();
 		if (d.getHealth() <= 5) {
+<<<<<<< HEAD
 			d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED + "bleeding");
+=======
+			d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED
+					+ "bleeding");
+>>>>>>> Updated everything
 			d.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
 			d.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
 			d.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
@@ -27,3 +36,4 @@ public class DamageListener implements Listener {
 
 	}
 }
+
