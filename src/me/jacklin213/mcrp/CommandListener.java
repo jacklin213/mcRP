@@ -1,9 +1,5 @@
 package me.jacklin213.mcrp;
 
-import net.milkycraft.Scheduler.Scheduler;
-import net.milkycraft.Utility.PlayerTimer;
-import net.milkycraft.Utility.Time;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -132,28 +128,72 @@ public class CommandListener implements CommandExecutor {
 					+ "+-----------------------------------+");
 			return true;
 		}
-		// SuperJump - I just figured out how to make this a method and still
-		// have Player p. Will do that tommorow so we can take this out of our
-		// class
-		else if (commandLabel.equalsIgnoreCase("superspeed")) {
+		if (commandLabel.equalsIgnoreCase("skills")) {
 			Player p = (Player) sender;
-			if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
-				p.sendMessage(ChatColor.GRAY + "You still have a "
-						+ PlayerTimer.getRemainingTime(p.getName(), Time.EXONE)
-						+ " second cooldown");
-			} else {
-				Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin,
-						p.getName(), Time.EXONE));
-				p.sendMessage(ChatColor.GRAY
-						+ "You have activated your super speed ability");
-				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200,
-						1));
-			}
+			if (args.length == 1) {
+				if (sender instanceof Player) {
+					if (args[0].equalsIgnoreCase("superspeed")) {
+						Skills.SuperSpeed(p);
+						return true;
+					} else if (args[0].equalsIgnoreCase("bless")) {
+						Skills.Bless(p, args);
+						return true;
+					} else if (args[0].equalsIgnoreCase("Might")) {
+						Skills.Might(p);
+						return true;
+					} else if (args[0].equalsIgnoreCase("Gills")) {
+						Skills.Gills(p);
+						return true;
+					} else if (args[0].equalsIgnoreCase("SuperJump")) {
+						Skills.SuperJump(p);
+						return true;
+					}else if (args[0].equalsIgnoreCase("Martyboom")) {
+						Skills.Martyboom(p);
+						return true;
+					}
 
+				} else {
+					this.plugin.getLogger().info(
+							"This command can only be used by players");
+				}
+				// end of args.lenth ==1
+
+			} else if (args.length == 2) {
+				if (args[0].equalsIgnoreCase("help")) {
+					Player player = (Player) sender;
+					return Skillshelp(player, args[1]);
+
+				}
+			}// end of args.length == 2
+			Player player = (Player) sender;
+			return Skillshelp(player, args[1]);
 		}
 
 		return false;
 	}
 
+	private boolean Skillshelp(Player player, String rawPage) {
+		try {
+			int page = Integer.parseInt(rawPage);
+
+			if (page == 1) {
+				player.sendMessage(ChatColor.YELLOW + " ------------ "
+						+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"
+						+ ChatColor.YELLOW + " ------------");
+				player.sendMessage(ChatColor.GOLD + "/superspeed"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Gives you a speed boost !");
+				player.sendMessage(ChatColor.GOLD + "/bless" + ChatColor.GRAY
+						+ " - " + ChatColor.WHITE + "Heals you !");
+			} else {
+				player.sendMessage(ChatColor.RED
+						+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
+			}
+		} catch (NumberFormatException nfe) {
+			player.sendMessage(ChatColor.RED
+					+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
+		}
+		return true;
+	}
 	// end of commandexecutor class
 }

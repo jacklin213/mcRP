@@ -12,6 +12,7 @@ public class mcRP extends JavaPlugin {
 	public final CommandListener ce = new CommandListener(this);
 	public final DamageListener dl = new DamageListener(this);
 	public final PlayerListener pl = new PlayerListener(this); 
+	public final Skills skills = new Skills(this);
 	public final Logger log = Logger.getLogger("Minecraft");
 
 	public void onEnable() {

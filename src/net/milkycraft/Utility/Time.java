@@ -23,6 +23,7 @@ public class Time implements Comparable<Time> {
 	public final static Time EXONE = new Time(5.0);
 	public final static Time EXTWO = new Time(10.0);
 	public final static Time EXTHREE = new Time(15.0);
+	public final static Time THREEMINCD = new Time(180.0);
 	public final static Time CONFIGEXAMPLE = new Time(getConfig());
 
 	private double time;

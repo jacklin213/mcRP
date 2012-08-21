@@ -16,9 +16,6 @@ commands:
   mcRP:
     description: Displays info on mcRP
     usage: Correct usage /mcRP
-  superspeed:
-    description: SuperJump Ability
-    usage: Correct usage /superspeed
   mcRP test:
     description: test
   mcRP test2:
@@ -33,6 +30,10 @@ commands:
     usage: Correct usage /mcRP set welcomemessage or /mcRP set wm
     permission: mcRP.setwelcomemessage
     permissions-message: You don't have the permission to set the welcome message!
+  Skills:
+    description: Shows all the Skills
+    usage: Correct usage /skills
+  
 
 permissions:
   mcRP.*:
