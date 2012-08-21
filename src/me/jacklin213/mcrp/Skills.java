@@ -150,6 +150,31 @@ public class Skills {
 		}
 		
 	}
-   
+	
+	//Confuse
+	public static void Confuse(Player p, String args[]){
+		Player target = Bukkit.getPlayerExact(args[1]);
+		if(args.length == 1){
+			
+			p.sendMessage(ChatColor.RED + "You NEED to define a player to use this skill");
+			
+		}
+		else if(args.length == 2){
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		}
+		else if(!target.isOnline()){
+			p.sendMessage(ChatColor.RED + "Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
+		}
+		else{
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
+	        p.sendMessage(ChatColor.GRAY + "You have activated your Confuse ability on " + target.getName());
+	        target.sendMessage(ChatColor.GRAY + "You were confused by " + p.getName());
+		      
+		      
+	}
+		}
+	}
 
 }
