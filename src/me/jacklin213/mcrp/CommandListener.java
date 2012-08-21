@@ -48,14 +48,14 @@ public class CommandListener implements CommandExecutor {
 					} else {
 						sender.sendMessage(ChatColor.RED
 								+ "You are not a Player!");
-						return false;
+						return true;
 					}
 				} else // end of test
 				if (args[0].equalsIgnoreCase("test2")) {
 					if (!(sender instanceof Player)) {
 						sender.sendMessage(ChatColor.RED
 								+ "You are not a Player!");
-						return false;
+						return true;
 					} else {
 						Player p = (Player) sender;
 						if (p.getHealth() <= 5) {
@@ -65,7 +65,7 @@ public class CommandListener implements CommandExecutor {
 							return true;
 						} else {
 							p.sendMessage("You have too much hp");
-							return false;
+							return true;
 						}
 					}
 				}// end of test 2
@@ -77,7 +77,7 @@ public class CommandListener implements CommandExecutor {
 					if (args.length < 1) {
 						sender.sendMessage(ChatColor.RED
 								+ "Not a valid command !");
-						return false;
+						return true;
 					}
 					if (args[1].equalsIgnoreCase("welcomemessage")
 							|| args[1].equalsIgnoreCase("wm")) {
@@ -147,7 +147,7 @@ public class CommandListener implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("SuperJump")) {
 						Skills.SuperJump(p);
 						return true;
-					}else if (args[0].equalsIgnoreCase("Martyboom")) {
+					} else if (args[0].equalsIgnoreCase("Martyboom")) {
 						Skills.Martyboom(p);
 						return true;
 					}
@@ -155,6 +155,7 @@ public class CommandListener implements CommandExecutor {
 				} else {
 					this.plugin.getLogger().info(
 							"This command can only be used by players");
+					return true;
 				}
 				// end of args.lenth ==1
 
@@ -165,8 +166,8 @@ public class CommandListener implements CommandExecutor {
 
 				}
 			}// end of args.length == 2
-			Player player = (Player) sender;
-			return Skillshelp(player, args[1]);
+			p.sendMessage("Is this working?");
+			return true;
 		}
 
 		return false;
@@ -177,9 +178,14 @@ public class CommandListener implements CommandExecutor {
 			int page = Integer.parseInt(rawPage);
 
 			if (page == 1) {
-				player.sendMessage(ChatColor.YELLOW + " ------------ "+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"+ ChatColor.YELLOW + " ------------");
-				player.sendMessage(ChatColor.GOLD + "/superspeed"+ ChatColor.GRAY + " - " + ChatColor.WHITE	+ "Gives you a speed boost !");
-				player.sendMessage(ChatColor.GOLD + "/bless" + ChatColor.GRAY+ " - " + ChatColor.WHITE + "Heals you !");
+				player.sendMessage(ChatColor.YELLOW + " ------------ "
+						+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"
+						+ ChatColor.YELLOW + " ------------");
+				player.sendMessage(ChatColor.GOLD + "/superspeed"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Gives you a speed boost !");
+				player.sendMessage(ChatColor.GOLD + "/bless" + ChatColor.GRAY
+						+ " - " + ChatColor.WHITE + "Heals you !");
 			} else {
 				player.sendMessage(ChatColor.RED
 						+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
