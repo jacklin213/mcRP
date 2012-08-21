@@ -29,8 +29,7 @@ public class CommandListener implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("reload")) {
 					if (!(sender.hasPermission("mcRP.reload"))) {
 						return false;
-					}
-					if (sender instanceof Player) {
+					} else if (sender instanceof Player) {
 						this.plugin.CreateConfig();
 						this.plugin.reloadConfig();
 						sender.sendMessage(ChatColor.RED + "[mcRP]"
@@ -44,8 +43,7 @@ public class CommandListener implements CommandExecutor {
 						this.plugin.getLogger().info("Config reloaded!");
 						return true;
 					}
-				}
-				if (args[0].equalsIgnoreCase("test")) {
+				} else if (args[0].equalsIgnoreCase("test")) {
 					if (sender instanceof Player) {
 						Player p = (Player) sender;
 						p.setHealth(6);
@@ -54,15 +52,14 @@ public class CommandListener implements CommandExecutor {
 					} else {
 						sender.sendMessage(ChatColor.RED
 								+ "You are not a Player!");
-						return true;
+						return false;
 					}
-				}// end of test
-
+				} else // end of test
 				if (args[0].equalsIgnoreCase("test2")) {
 					if (!(sender instanceof Player)) {
 						sender.sendMessage(ChatColor.RED
 								+ "You are not a Player!");
-						return true;
+						return false;
 					} else {
 						Player p = (Player) sender;
 						if (p.getHealth() <= 5) {
@@ -72,26 +69,27 @@ public class CommandListener implements CommandExecutor {
 							return true;
 						} else {
 							p.sendMessage("You have too much hp");
-							return true;
+							return false;
 						}
 					}
 				}// end of test 2
 				return false;
 
-			}// end of args.length == 0
-
+			} else // end of args.length == 0
 			if (args.length > 1) {
 				if (args[0].equalsIgnoreCase("set")) {
 					if (args.length < 1) {
 						sender.sendMessage(ChatColor.RED
 								+ "Not a valid command !");
-						return true;
+						return false;
 					}
 					if (args[1].equalsIgnoreCase("welcomemessage")
 							|| args[1].equalsIgnoreCase("wm")) {
 						if (!(sender.hasPermission("mcRP.setwelcomemessage"))) {
+							sender.sendMessage("You don't have the permission to do this");
 							return false;
 						} else {
+
 							// string builder
 							String msg;
 
@@ -134,21 +132,25 @@ public class CommandListener implements CommandExecutor {
 					+ "+-----------------------------------+");
 			return true;
 		}
-		//SuperJump - I just figured out how to make this a method and still have Player p. Will do that tommorow so we can take this out of our class
-		else if(commandLabel.equalsIgnoreCase("superspeed")){
+		// SuperJump - I just figured out how to make this a method and still
+		// have Player p. Will do that tommorow so we can take this out of our
+		// class
+		else if (commandLabel.equalsIgnoreCase("superspeed")) {
 			Player p = (Player) sender;
-			if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-				p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+			if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
+				p.sendMessage(ChatColor.GRAY + "You still have a "
+						+ PlayerTimer.getRemainingTime(p.getName(), Time.EXONE)
+						+ " second cooldown");
+			} else {
+				Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin,
+						p.getName(), Time.EXONE));
+				p.sendMessage(ChatColor.GRAY
+						+ "You have activated your super speed ability");
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200,
+						1));
 			}
-			else{
-	            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
-	            p.sendMessage(ChatColor.GRAY + "You have activated your super speed ability");
-	            p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
-			}
-			
-			
+
 		}
-		
 
 		return false;
 	}
