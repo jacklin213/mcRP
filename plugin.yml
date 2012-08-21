@@ -2,7 +2,7 @@ name: mcRP
 version: 1.0
 description:
 author: jacklin213
-authors: [TickleNinja]
+authors: [PineAbe]
 
 main: me.jacklin213.mcrp.mcRP
 commands:

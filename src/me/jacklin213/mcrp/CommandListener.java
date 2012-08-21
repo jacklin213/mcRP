@@ -177,14 +177,9 @@ public class CommandListener implements CommandExecutor {
 			int page = Integer.parseInt(rawPage);
 
 			if (page == 1) {
-				player.sendMessage(ChatColor.YELLOW + " ------------ "
-						+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"
-						+ ChatColor.YELLOW + " ------------");
-				player.sendMessage(ChatColor.GOLD + "/superspeed"
-						+ ChatColor.GRAY + " - " + ChatColor.WHITE
-						+ "Gives you a speed boost !");
-				player.sendMessage(ChatColor.GOLD + "/bless" + ChatColor.GRAY
-						+ " - " + ChatColor.WHITE + "Heals you !");
+				player.sendMessage(ChatColor.YELLOW + " ------------ "+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"+ ChatColor.YELLOW + " ------------");
+				player.sendMessage(ChatColor.GOLD + "/superspeed"+ ChatColor.GRAY + " - " + ChatColor.WHITE	+ "Gives you a speed boost !");
+				player.sendMessage(ChatColor.GOLD + "/bless" + ChatColor.GRAY+ " - " + ChatColor.WHITE + "Heals you !");
 			} else {
 				player.sendMessage(ChatColor.RED
 						+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
