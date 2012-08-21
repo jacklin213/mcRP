@@ -33,7 +33,6 @@ commands:
   Skills:
     description: Shows all the Skills
     usage: Correct usage /skills
-  
 
 permissions:
   mcRP.*:
