@@ -128,7 +128,7 @@ public class CommandListener implements CommandExecutor {
 					+ "+-----------------------------------+");
 			return true;
 		}
-		if (commandLabel.equalsIgnoreCase("skills")) {
+		if (commandLabel.equalsIgnoreCase("skill")) {
 			Player p = (Player) sender;
 			if (args.length == 1) {
 				if (sender instanceof Player) {
@@ -169,6 +169,12 @@ public class CommandListener implements CommandExecutor {
 			p.sendMessage("Is this working?");
 			return true;
 		}
+		else if(commandLabel.equalsIgnoreCase("skills")){
+			
+			Player player = (Player) sender;
+			return Skillshelp(player, args[1]);
+		
+		}
 
 		return false;
 	}
@@ -181,11 +187,26 @@ public class CommandListener implements CommandExecutor {
 				player.sendMessage(ChatColor.YELLOW + " ------------ "
 						+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"
 						+ ChatColor.YELLOW + " ------------");
-				player.sendMessage(ChatColor.GOLD + "/superspeed"
+				player.sendMessage(ChatColor.GOLD + "/skill superspeed"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Gives you a speed boost !");
-				player.sendMessage(ChatColor.GOLD + "/bless" + ChatColor.GRAY
-						+ " - " + ChatColor.WHITE + "Heals you !");
+				player.sendMessage(ChatColor.GOLD + "/skill bless" + ChatColor.GRAY
+						+ " - " + ChatColor.WHITE + "Heals you or a friend!");
+				player.sendMessage(ChatColor.GOLD + "/skill might"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Increases your damage temporarily !");
+				player.sendMessage(ChatColor.GOLD + "/skill gills"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Temporarily breathe underwater !");
+				player.sendMessage(ChatColor.GOLD + "/skill superjump"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Jump higher than normal !");
+				player.sendMessage(ChatColor.GOLD + "/skill martyboom"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Detonate yourself with huge impact !");
+				player.sendMessage(ChatColor.GOLD + "/skill superpunch"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Do huge damage penetrating armour !");
 			} else {
 				player.sendMessage(ChatColor.RED
 						+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
