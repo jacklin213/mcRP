@@ -25,6 +25,7 @@ public class mcRP extends JavaPlugin {
 		Userfilegenerator(); // Creates UserFile folder
 		CreateConfig();//Creates config
 		getCommand("mcrp").setExecutor(ce);
+		getCommand("skills").setExecutor(ce);
 
 	}
 

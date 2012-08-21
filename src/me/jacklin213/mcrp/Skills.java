@@ -1,4 +1,4 @@
-package me.pineabe;
+package me.jacklin213.mcrp;
 
 import me.jacklin213.mcrp.mcRP;
 import net.milkycraft.Scheduler.Scheduler;
@@ -15,6 +15,9 @@ import org.bukkit.potion.PotionEffectType;
 public class Skills {
 	public static mcRP plugin;
 	
+	public Skills (mcRP instance){
+		plugin = instance;
+	}
 	//SUPERSPEED
 	public static void SuperSpeed(Player p){
 
