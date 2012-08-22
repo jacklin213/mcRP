@@ -21,11 +21,11 @@ public class Skills {
 	//SUPERSPEED
 	public static void SuperSpeed(Player p){
 
-	if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-		p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+	if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+		p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 	}
 	else{
-        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
         p.sendMessage(ChatColor.GRAY + "You have activated your SuperSpeed ability");
         p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
 	}
@@ -36,11 +36,11 @@ public class Skills {
 	//BLESS
 	public static void Bless(Player p, String args[]){
 		if(args.length == 1){
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else{
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your Bless ability");
 	        p.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 200, 1));
 		}
@@ -50,11 +50,11 @@ public class Skills {
 			if(!target.isOnline()){
 				p.sendMessage(ChatColor.RED + "Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
 			}
-			else if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-				p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+			else if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+				p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 			}
 			else{
-		        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+		        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 		        p.sendMessage(ChatColor.GRAY + "You have activated your Bless ability on " + target.getName());
 		        target.sendMessage(ChatColor.GRAY + "You have been healed by " + p.getName());
 		        target.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 200, 1));
@@ -65,11 +65,11 @@ public class Skills {
 	//MIGHT
 	public static void Might(Player p){
 		
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else{
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your Might ability");
 	        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1));
 		}
@@ -79,11 +79,11 @@ public class Skills {
 	//GILLS
 	public static void Gills(Player p){
 		
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else{
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your Gills ability");
 	        p.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 200, 1));
 		}
@@ -93,11 +93,11 @@ public class Skills {
 	//SuperJump
 	public static void SuperJump(Player p){
 		
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else{
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your SuperJump ability");
 	        p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200, 1));
 		}
@@ -107,11 +107,11 @@ public class Skills {
 	//Martyboom
 	public static void Martyboom(Player p){
 		Location l = p.getLocation();
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else{
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your martyboom ability");
 	        p.getWorld().createExplosion(l, 4 );
 	        if(p.getHealth() > 0){
@@ -133,15 +133,15 @@ public class Skills {
 			
 		}
 		else if(args.length == 2){
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else if(!target.isOnline()){
 			p.sendMessage(ChatColor.RED + "Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
 		}
 		else{
 			target.setHealth(target.getHealth() - 5);
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your SuperPunch ability on " + target.getName());
 	        if(p.getHealth() > 0){
 	        p.setHealth(0);
@@ -160,14 +160,14 @@ public class Skills {
 			
 		}
 		else if(args.length == 2){
-		if(PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)){
-			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
+		if(PlayerTimer.isCoolingDown(p.getName(), Time.THREEMINCD)){
+			p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.THREEMINCD) + " second cooldown");
 		}
 		else if(!target.isOnline()){
 			p.sendMessage(ChatColor.RED + "Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
 		}
 		else{
-	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.EXONE));
+	        Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, p.getName(), Time.THREEMINCD));
 	        target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
 	        p.sendMessage(ChatColor.GRAY + "You have activated your Confuse ability on " + target.getName());
 	        target.sendMessage(ChatColor.GRAY + "You were confused by " + p.getName());

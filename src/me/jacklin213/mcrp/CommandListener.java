@@ -127,11 +127,10 @@ public class CommandListener implements CommandExecutor {
 			sender.sendMessage(ChatColor.DARK_GREEN
 					+ "+-----------------------------------+");
 			return true;
-		}
-		if (commandLabel.equalsIgnoreCase("skill")) {
-			Player p = (Player) sender;
+		} else if (commandLabel.equalsIgnoreCase("skills")) {
 			if (args.length == 1) {
 				if (sender instanceof Player) {
+					Player p = (Player) sender;
 					if (args[0].equalsIgnoreCase("superspeed")) {
 						Skills.SuperSpeed(p);
 						return true;
@@ -150,30 +149,35 @@ public class CommandListener implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("Martyboom")) {
 						Skills.Martyboom(p);
 						return true;
+					} else if (args[0].equalsIgnoreCase("Confuse")) {
+						Skills.Confuse(p, args);
+						return true;
 					}
-
 				} else {
 					this.plugin.getLogger().info(
 							"This command can only be used by players");
 					return true;
 				}
+
 				// end of args.lenth ==1
 
-			} else if (args.length == 2) {
-				if (args[0].equalsIgnoreCase("help")) {
-					Player player = (Player) sender;
-					return Skillshelp(player, args[1]);
+				// end of args.lenth ==1
+
+			} else if (args.length >= 2) {
+				if (sender instanceof Player) {
+					if (args[0].equalsIgnoreCase("help")) {
+						Player player = (Player) sender;
+						return Skillshelp(player, args[1]);
+					} else {
+						this.plugin.getLogger().info(
+								"This command can only be used by players");
+						return true;
+					}
 
 				}
 			}// end of args.length == 2
-			p.sendMessage("Is this working?");
+			sender.sendMessage("Not enough arguments. Type /skills help 1 for help");
 			return true;
-		}
-		else if(commandLabel.equalsIgnoreCase("skills")){
-			
-			Player player = (Player) sender;
-			return Skillshelp(player, args[1]);
-		
 		}
 
 		return false;
@@ -190,8 +194,9 @@ public class CommandListener implements CommandExecutor {
 				player.sendMessage(ChatColor.GOLD + "/skill superspeed"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Gives you a speed boost !");
-				player.sendMessage(ChatColor.GOLD + "/skill bless" + ChatColor.GRAY
-						+ " - " + ChatColor.WHITE + "Heals you or a friend!");
+				player.sendMessage(ChatColor.GOLD + "/skill bless"
+						+ ChatColor.GRAY + " - " + ChatColor.WHITE
+						+ "Heals you or a friend!");
 				player.sendMessage(ChatColor.GOLD + "/skill might"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Increases your damage temporarily !");
@@ -209,13 +214,14 @@ public class CommandListener implements CommandExecutor {
 						+ "Do huge damage penetrating armour !");
 			} else {
 				player.sendMessage(ChatColor.RED
-						+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
+						+ " Invalid page number specified. There is only 1 page right now.");
 			}
 		} catch (NumberFormatException nfe) {
 			player.sendMessage(ChatColor.RED
-					+ " Invalid page number specified. Please specify a number between 1 and 2 inclusive.");
+					+ " Invalid page number specified. There is only 1 page right now.");
 		}
 		return true;
 	}
+
 	// end of commandexecutor class
 }
