@@ -1,6 +1,7 @@
 package me.jacklin213.mcrp;
 
 import org.bukkit.ChatColor;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +19,7 @@ public class DamageListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void OnEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		Player d = (Player) event.getEntity();
+		if((d.getType() == EntityType.PLAYER)){
 		if (d.getHealth() <= 5) {
 			d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED
 					+ "bleeding");
@@ -26,7 +28,7 @@ public class DamageListener implements Listener {
 					1));
 			d.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
 		}
-
+		
+		}
 	}
 }
-
