@@ -1,0 +1,55 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mcRP</groupId>
+    <artifactId>mcRP</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>mcRP</name>
+    <description>mcRP is a plugin for Bukkit, a Minecraft Server API.</description>
+    <url>http://dev.bukkit.org/server-mods/mcRP/</url>
+	
+    <licenses>
+        <license>
+            <name>Simplified BSD Liscence</name>
+            <url>http://opensource.org/licenses/bsd-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>git://github.com/jacklin213/mcRP.git</connection>
+        <developerConnection>scm:git:https://github.com/jacklin213/mcRP.git</developerConnection>
+        <url>https://github.com/jacklin213/mcRP</url>
+    </scm>
+	
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <repositories>
+        <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>LATEST</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+</project>
