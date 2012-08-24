@@ -20,7 +20,7 @@ public class Time implements Comparable<Time> {
 	 * Caps are not required, also times dont need to end in 0
 	 * This is just a nice interface for minecraft long 
 	 */
-	public final static Time EXONE = new Time(5.0);
+	public final static Time EXONE = new Time(180.0);
 	public final static Time EXTWO = new Time(10.0);
 	public final static Time EXTHREE = new Time(15.0);
 	public final static Time THREEMINCD = new Time(180.0);
