@@ -1,18 +1,17 @@
 package com.mcrp;
 
-import com.mcrp.mcRP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.potion.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.potion.*;
 
 public class DamageListener implements Listener {
 
-    public static mcRP plugin;
+    public final mcRP plugin;
 
     public DamageListener(mcRP instance) {
         plugin = instance;
@@ -23,14 +22,11 @@ public class DamageListener implements Listener {
         Player d = (Player) event.getEntity();
         if ((d.getType() == EntityType.PLAYER)) {
             if (d.getHealth() <= 5) {
-                d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED
-                        + " bleeding");
+                d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED + " bleeding");
                 d.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
-                d.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200,
-                        1));
+                d.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
                 d.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
             }
-
         }
     }
 }
