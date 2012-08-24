@@ -22,7 +22,7 @@ public class DamageListener implements Listener {
 		if((d.getType() == EntityType.PLAYER)){
 		if (d.getHealth() <= 5) {
 			d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED
-					+ "bleeding");
+					+ " bleeding");
 			d.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
 			d.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200,
 					1));
