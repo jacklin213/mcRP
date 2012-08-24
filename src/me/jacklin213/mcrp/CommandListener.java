@@ -191,25 +191,25 @@ public class CommandListener implements CommandExecutor {
 				player.sendMessage(ChatColor.YELLOW + " ------------ "
 						+ ChatColor.WHITE + "Help: mcRP Skills (Page 1)"
 						+ ChatColor.YELLOW + " ------------");
-				player.sendMessage(ChatColor.GOLD + "/skill superspeed"
+				player.sendMessage(ChatColor.GOLD + "/skills superspeed"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Gives you a speed boost !");
-				player.sendMessage(ChatColor.GOLD + "/skill bless"
+				player.sendMessage(ChatColor.GOLD + "/skills bless"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Heals you or a friend!");
-				player.sendMessage(ChatColor.GOLD + "/skill might"
+				player.sendMessage(ChatColor.GOLD + "/skills might"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Increases your damage temporarily !");
-				player.sendMessage(ChatColor.GOLD + "/skill gills"
+				player.sendMessage(ChatColor.GOLD + "/skills gills"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Temporarily breathe underwater !");
-				player.sendMessage(ChatColor.GOLD + "/skill superjump"
+				player.sendMessage(ChatColor.GOLD + "/skills superjump"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Jump higher than normal !");
-				player.sendMessage(ChatColor.GOLD + "/skill martyboom"
+				player.sendMessage(ChatColor.GOLD + "/skills martyboom"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Detonate yourself with huge impact !");
-				player.sendMessage(ChatColor.GOLD + "/skill superpunch"
+				player.sendMessage(ChatColor.GOLD + "/skills superpunch"
 						+ ChatColor.GRAY + " - " + ChatColor.WHITE
 						+ "Do huge damage penetrating armour !");
 			} else {
