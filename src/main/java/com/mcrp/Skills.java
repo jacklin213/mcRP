@@ -21,7 +21,7 @@ public class Skills {
     }
     //SUPERSPEED
 
-    public static void SuperSpeed(Player p) {
+    public static void superSpeed(Player p) {
 
         if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
             p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
@@ -35,7 +35,7 @@ public class Skills {
     }
 
     //BLESS
-    public static void Bless(Player p, String args[]) {
+    public static void bless(Player p, String args[]) {
         if (args.length == 1) {
             if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
                 p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
@@ -60,7 +60,7 @@ public class Skills {
     }
 
     //MIGHT
-    public static void Might(Player p) {
+    public static void might(Player p) {
 
         if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
             p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
@@ -73,7 +73,7 @@ public class Skills {
     }
 
     //GILLS
-    public static void Gills(Player p) {
+    public static void gills(Player p) {
 
         if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
             p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
@@ -86,7 +86,7 @@ public class Skills {
     }
 
     //SuperJump
-    public static void SuperJump(Player p) {
+    public static void superJump(Player p) {
 
         if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
             p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
@@ -99,7 +99,7 @@ public class Skills {
     }
 
     //Martyboom
-    public static void Martyboom(Player p) {
+    public static void martyboom(Player p) {
         Location l = p.getLocation();
         if (PlayerTimer.isCoolingDown(p.getName(), Time.EXONE)) {
             p.sendMessage(ChatColor.GRAY + "You still have a " + PlayerTimer.getRemainingTime(p.getName(), Time.EXONE) + " second cooldown");
@@ -141,7 +141,7 @@ public class Skills {
     }
 
     //Confuse
-    public static void Confuse(Player p, String args[]) {
+    public static void confuse(Player p, String args[]) {
         Player target = Bukkit.getPlayerExact(args[1]);
         if (args.length == 1) {
 
