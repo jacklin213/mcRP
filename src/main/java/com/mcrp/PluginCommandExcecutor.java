@@ -25,9 +25,6 @@
  */
 package com.mcrp;
 
-import net.milkycraft.Scheduler.Scheduler;
-import net.milkycraft.Utility.PlayerTimer;
-import net.milkycraft.Utility.Time;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -208,10 +205,10 @@ public class PluginCommandExcecutor implements CommandExecutor {
     }
 
     public void superSpeed(Player player) {
-        if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+        if (plugin.isCoolingDown(player.getName())) {
+            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
         } else {
-            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+            plugin.scheduleCooldown(player.getName());
             player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your SuperSpeed ability");
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
         }
@@ -219,10 +216,10 @@ public class PluginCommandExcecutor implements CommandExecutor {
 
     public void bless(Player player, String args[]) {
         if (args.length == 1) {
-            if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+            if (plugin.isCoolingDown(player.getName())) {
+                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
             } else {
-                Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+                plugin.scheduleCooldown(player.getName());
                 player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Bless ability");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 200, 1));
             }
@@ -230,10 +227,10 @@ public class PluginCommandExcecutor implements CommandExecutor {
             Player target = Bukkit.getPlayerExact(args[1]);
             if (!target.isOnline()) {
                 player.sendMessage(mcRP.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
-            } else if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+            } else if (plugin.isCoolingDown(player.getName())) {
+                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
             } else {
-                Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+                plugin.scheduleCooldown(player.getName());
                 player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Bless ability on " + target.getName());
                 target.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have been healed by " + player.getName());
                 target.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 200, 1));
@@ -242,20 +239,20 @@ public class PluginCommandExcecutor implements CommandExecutor {
     }
 
     public void might(Player player) {
-        if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+        if (plugin.isCoolingDown(player.getName())) {
+            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
         } else {
-            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+            plugin.scheduleCooldown(player.getName());
             player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Might ability");
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1));
         }
     }
 
     public void gills(Player player) {
-        if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+        if (plugin.isCoolingDown(player.getName())) {
+            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
         } else {
-            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+            plugin.scheduleCooldown(player.getName());
             player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Gills ability");
             player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 200, 1));
         }
@@ -263,20 +260,20 @@ public class PluginCommandExcecutor implements CommandExecutor {
     }
 
     public void superJump(Player player) {
-        if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+        if (plugin.isCoolingDown(player.getName())) {
+            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
         } else {
-            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+            plugin.scheduleCooldown(player.getName());
             player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your SuperJump ability");
             player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200, 1));
         }
     }
 
     public void martyboom(Player player) {
-        if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+        if (plugin.isCoolingDown(player.getName())) {
+            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
         } else {
-            Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+            plugin.scheduleCooldown(player.getName());
             player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your martyboom ability");
             player.getWorld().createExplosion(player.getLocation(), 4);
             if (player.getHealth() > 0) {
@@ -292,13 +289,13 @@ public class PluginCommandExcecutor implements CommandExecutor {
         if (args.length == 1) {
             player.sendMessage(mcRP.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
         } else if (args.length == 2) {
-            if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+            if (plugin.isCoolingDown(player.getName())) {
+                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
             } else if (!target.isOnline()) {
                 player.sendMessage(mcRP.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
             } else {
                 target.setHealth(target.getHealth() - 5);
-                Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+                plugin.scheduleCooldown(player.getName());
                 player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your SuperPunch ability on " + target.getName());
                 if (player.getHealth() > 0) {
                     player.setHealth(0);
@@ -314,12 +311,12 @@ public class PluginCommandExcecutor implements CommandExecutor {
 
             player.sendMessage(mcRP.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
         } else if (args.length == 2) {
-            if (PlayerTimer.isCoolingDown(player.getName(), Time.EXONE)) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + PlayerTimer.getRemainingTime(player.getName(), Time.EXONE) + " second cooldown");
+            if (plugin.isCoolingDown(player.getName())) {
+                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
             } else if (!target.isOnline()) {
                 player.sendMessage(mcRP.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
             } else {
-                Scheduler.schedulePlayerCooldown(Scheduler.schedule(plugin, player.getName(), Time.EXONE));
+                plugin.scheduleCooldown(player.getName());
                 target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
                 player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Confuse ability on " + target.getName());
                 target.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You were confused by " + player.getName());

@@ -25,17 +25,24 @@
  */
 package com.mcrp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class mcRP extends JavaPlugin {
 
+    private static final Logger log = Logger.getLogger("Minecraft");
+
     public static String getChatName() {
         return ChatColor.GOLD + "[mcRP]" + ChatColor.RESET;
     }
-    public static final Logger log = Logger.getLogger("Minecraft");
+    private int cooldown = 60;
+    private Map<String, Integer> cooldowns = new HashMap();
 
     @Override
     public void onEnable() {
@@ -55,5 +62,29 @@ public class mcRP extends JavaPlugin {
     @Override
     public void onDisable() {
         log.log(Level.INFO, getDescription().getName() + " is now disabled.");
+    }
+
+    public void scheduleCooldown(final String player) {
+        cooldowns.put(player, cooldown);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(this, new Runnable() {
+            public void run() {
+                int time = cooldowns.get(player);
+
+                if (time > 0) {
+                    cooldowns.put(player, time - 1);
+                } else {
+                    cooldowns.remove(player);
+                }
+            }
+        }, cooldown);
+    }
+
+    public boolean isCoolingDown(String player) {
+        return cooldowns.get(player) != null;
+    }
+
+    public int getCooldownRemaining(String player) {
+        return cooldowns.get(player);
     }
 }
