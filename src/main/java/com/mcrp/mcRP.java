@@ -27,18 +27,22 @@ package com.mcrp;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class mcRP extends JavaPlugin {
 
+    public static String getChatName() {
+        return ChatColor.GOLD + "[mcRP]" + ChatColor.RESET;
+    }
     public static final Logger log = Logger.getLogger("Minecraft");
 
     @Override
     public void onEnable() {
-        log.log(Level.INFO, getDescription().getName() + getDescription().getVersion() + " By jacklin213 & PineAbe is now enabled!.");
-        
+        log.log(Level.INFO, getDescription().getName() + getDescription().getVersion() + " By: The mcRP Team is now enabled!.");
+
         getServer().getPluginManager().registerEvents(new PluginEventListener(this), this);
-        
+
         getConfig().options().copyDefaults(true);
         saveConfig();
 
@@ -50,6 +54,6 @@ public class mcRP extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.getLogger().info(getDescription().getName() + " is now disabled.");
+        log.log(Level.INFO, getDescription().getName() + " is now disabled.");
     }
 }

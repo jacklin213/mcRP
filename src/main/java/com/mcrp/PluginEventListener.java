@@ -43,20 +43,20 @@ public class PluginEventListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
-    public void OnEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        Player d = (Player) event.getEntity();
-        if ((d.getType() == EntityType.PLAYER)) {
-            if (d.getHealth() <= 5) {
-                d.sendMessage(ChatColor.YELLOW + "You are" + ChatColor.RED + " bleeding");
-                d.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
-                d.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
-                d.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        Player player = (Player) event.getEntity();
+        if (player.getType() == EntityType.PLAYER) {
+            if (player.getHealth() <= 5) {
+                player.sendMessage(mcRP.getChatName() + ChatColor.YELLOW + " You are" + ChatColor.RED + " bleeding!");
+                player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
             }
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
         event.getPlayer().sendMessage(plugin.getConfig().getString("WelcomeMessage"));
     }
