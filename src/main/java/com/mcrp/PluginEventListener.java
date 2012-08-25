@@ -43,7 +43,7 @@ public class PluginEventListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         Player player = (Player) event.getEntity();
         if (player.getType() == EntityType.PLAYER) {
