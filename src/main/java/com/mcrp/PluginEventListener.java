@@ -56,7 +56,7 @@ public class PluginEventListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR){
     public void onJoin(PlayerJoinEvent event) {
         event.getPlayer().sendMessage(plugin.getConfig().getString("WelcomeMessage"));
     }
