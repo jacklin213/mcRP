@@ -3,26 +3,20 @@ main: com.mcrp.Plugin
 version: 1.1.0
 author: The mcRP Team
 commands:
-  test:
-    description: test
-  test2:
-    description: test
   mcRP:
     description: Displays info on mcRP
     usage: Correct usage /mcRP
   skills:
-    description: Shows all the Skills
+    description: Shows all the skills
     usage: Correct usage /skills
 permissions:
   mcRP.*:
     description: Allows use of all mcRP commands
     default: op
     children:
-      mcRP.setwelcomemessage: true
-      mcRP.reload: true
-  mcRP.setwelcomemessage:
-    description: Allows people to set welcome message
-    default: op
-  mcRP.reload:
-    description: Allows people to reload config
-    default: op
+      mcRP.setwelcomemessage:
+        description: Allows people to set welcome message
+        default: op
+      mcRP.reload:
+        description: Allows people to reload config
+        default: op
