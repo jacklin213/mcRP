@@ -1,6 +1,6 @@
 name: mcRP
-main: com.mcrp.mcRP
-version: 1.0
+main: com.mcrp.Plugin
+version: 1.1.0
 author: The mcRP Team
 commands:
   test:

@@ -36,16 +36,15 @@ import org.bukkit.potion.PotionEffectType;
 
 public class PluginCommandExcecutor implements CommandExecutor {
 
-    public final mcRP plugin;
+    public final Plugin plugin;
 
-    public PluginCommandExcecutor(mcRP plugin) {
+    public PluginCommandExcecutor(Plugin plugin) {
         this.plugin = plugin;
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd,
-            String commandLabel, String[] args) {
-        if (commandLabel.equalsIgnoreCase("mcRP")) {
+    public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+        if (alias.equalsIgnoreCase("mcRP")) {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
                     if (!(sender.hasPermission("mcRP.reload"))) {
@@ -53,7 +52,7 @@ public class PluginCommandExcecutor implements CommandExecutor {
                     } else if (sender instanceof Player) {
                         plugin.reloadConfig();
 
-                        sender.sendMessage(mcRP.getChatName() + ChatColor.GREEN + " Config reloaded.");
+                        sender.sendMessage(Plugin.getChatName() + ChatColor.GREEN + " Config reloaded.");
 
                         return true;
                     }
@@ -64,22 +63,22 @@ public class PluginCommandExcecutor implements CommandExecutor {
                         p.sendMessage("works");
                         return true;
                     } else {
-                        sender.sendMessage(mcRP.getChatName() + ChatColor.RED + " You are not a Player!");
+                        sender.sendMessage(Plugin.getChatName() + ChatColor.RED + " You are not a Player!");
                         return true;
                     }
                 } else if (args[0].equalsIgnoreCase("test2")) {
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage(mcRP.getChatName() + ChatColor.RED + " You are not a Player!");
+                        sender.sendMessage(Plugin.getChatName() + ChatColor.RED + " You are not a Player!");
                         return true;
                     } else {
                         Player player = (Player) sender;
                         if (player.getHealth() <= 5) {
                             player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
 
-                            player.sendMessage(mcRP.getChatName() + " works");
+                            player.sendMessage(Plugin.getChatName() + " works");
                             return true;
                         } else {
-                            player.sendMessage(mcRP.getChatName() + " You have too much hp");
+                            player.sendMessage(Plugin.getChatName() + " You have too much hp");
                             return true;
                         }
                     }
@@ -96,7 +95,7 @@ public class PluginCommandExcecutor implements CommandExecutor {
                     if (args[1].equalsIgnoreCase("welcomemessage")
                             || args[1].equalsIgnoreCase("wm")) {
                         if (!(sender.hasPermission("mcRP.setwelcomemessage"))) {
-                            sender.sendMessage(mcRP.getChatName() + " You don't have the permission to do this");
+                            sender.sendMessage(Plugin.getChatName() + " You don't have the permission to do this");
                             return false;
                         } else {
                             StringBuilder sb = new StringBuilder();
@@ -107,7 +106,7 @@ public class PluginCommandExcecutor implements CommandExecutor {
                                 sb.append(args);
                             }
 
-                            sender.sendMessage(mcRP.getChatName() + " The message has been changed to: " + sb.toString().replaceAll("(&([a-f0-9]))", "\u00A7$2"));
+                            sender.sendMessage(Plugin.getChatName() + " The message has been changed to: " + sb.toString().replaceAll("(&([a-f0-9]))", "\u00A7$2"));
                             plugin.getConfig().set("WelcomeMessage", sb.toString().replaceAll("(&([a-f0-9]))", "\u00A7$2"));
                             plugin.saveConfig();
 
@@ -126,34 +125,34 @@ public class PluginCommandExcecutor implements CommandExecutor {
             sender.sendMessage(ChatColor.DARK_GREEN + "+-----------------------------------+");
 
             return true;
-        } else if (commandLabel.equalsIgnoreCase("skills")) {
+        } else if (alias.equalsIgnoreCase("skills")) {
             if (args.length == 1) {
                 if (sender instanceof Player) {
                     Player p = (Player) sender;
                     if (args[0].equalsIgnoreCase("superspeed")) {
-                        superSpeed(p);
+                        plugin.getSkillManager().superSpeed(p);
                         return true;
                     } else if (args[0].equalsIgnoreCase("bless")) {
-                        bless(p, args);
+                        plugin.getSkillManager().bless(p, args);
                         return true;
-                    } else if (args[0].equalsIgnoreCase("Might")) {
-                        might(p);
+                    } else if (args[0].equalsIgnoreCase("might")) {
+                        plugin.getSkillManager().might(p);
                         return true;
-                    } else if (args[0].equalsIgnoreCase("Gills")) {
-                        gills(p);
+                    } else if (args[0].equalsIgnoreCase("gills")) {
+                        plugin.getSkillManager().gills(p);
                         return true;
-                    } else if (args[0].equalsIgnoreCase("SuperJump")) {
-                        superJump(p);
+                    } else if (args[0].equalsIgnoreCase("superJump")) {
+                        plugin.getSkillManager().superJump(p);
                         return true;
-                    } else if (args[0].equalsIgnoreCase("Martyboom")) {
-                        martyboom(p);
+                    } else if (args[0].equalsIgnoreCase("martyboom")) {
+                        plugin.getSkillManager().martyboom(p);
                         return true;
-                    } else if (args[0].equalsIgnoreCase("Confuse")) {
-                        confuse(p, args);
+                    } else if (args[0].equalsIgnoreCase("confuse")) {
+                        plugin.getSkillManager().confuse(p, args);
                         return true;
                     }
                 } else {
-                    sender.sendMessage(mcRP.getChatName() + " This command can only be used by players");
+                    sender.sendMessage(Plugin.getChatName() + " This command can only be used by players");
                     return true;
                 }
             } else if (args.length >= 2) {
@@ -163,7 +162,7 @@ public class PluginCommandExcecutor implements CommandExecutor {
 
                         return skillsHelp(player, args[1]);
                     } else {
-                        sender.sendMessage(mcRP.getChatName() + " This command can only be used by players");
+                        sender.sendMessage(Plugin.getChatName() + " This command can only be used by players");
 
                         return true;
                     }
@@ -197,130 +196,11 @@ public class PluginCommandExcecutor implements CommandExecutor {
         } catch (NumberFormatException nfe) {
             player.sendMessage(ChatColor.RED + " Invalid page number specified. There is only 1 page right now.");
         }
-        return true;
+
+        return false;
     }
 
     private void send(Player player, String command, String description) {
         player.sendMessage(ChatColor.GOLD + command + ChatColor.GRAY + " - " + ChatColor.WHITE + description);
-    }
-
-    public void superSpeed(Player player) {
-        if (plugin.isCoolingDown(player.getName())) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-        } else {
-            plugin.scheduleCooldown(player.getName());
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your SuperSpeed ability");
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1));
-        }
-    }
-
-    public void bless(Player player, String args[]) {
-        if (args.length == 1) {
-            if (plugin.isCoolingDown(player.getName())) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-            } else {
-                plugin.scheduleCooldown(player.getName());
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Bless ability");
-                player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 200, 1));
-            }
-        } else if (args.length == 2) {
-            Player target = Bukkit.getPlayerExact(args[1]);
-            if (!target.isOnline()) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
-            } else if (plugin.isCoolingDown(player.getName())) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-            } else {
-                plugin.scheduleCooldown(player.getName());
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Bless ability on " + target.getName());
-                target.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have been healed by " + player.getName());
-                target.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 200, 1));
-            }
-        }
-    }
-
-    public void might(Player player) {
-        if (plugin.isCoolingDown(player.getName())) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-        } else {
-            plugin.scheduleCooldown(player.getName());
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Might ability");
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1));
-        }
-    }
-
-    public void gills(Player player) {
-        if (plugin.isCoolingDown(player.getName())) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-        } else {
-            plugin.scheduleCooldown(player.getName());
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Gills ability");
-            player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 200, 1));
-        }
-
-    }
-
-    public void superJump(Player player) {
-        if (plugin.isCoolingDown(player.getName())) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-        } else {
-            plugin.scheduleCooldown(player.getName());
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your SuperJump ability");
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 200, 1));
-        }
-    }
-
-    public void martyboom(Player player) {
-        if (plugin.isCoolingDown(player.getName())) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-        } else {
-            plugin.scheduleCooldown(player.getName());
-            player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your martyboom ability");
-            player.getWorld().createExplosion(player.getLocation(), 4);
-            if (player.getHealth() > 0) {
-                player.setHealth(0);
-            }
-        }
-    }
-
-    //TODO use this
-    public void superPunch(Player player, String args[]) {
-        Player target = Bukkit.getPlayerExact(args[1]);
-
-        if (args.length == 1) {
-            player.sendMessage(mcRP.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
-        } else if (args.length == 2) {
-            if (plugin.isCoolingDown(player.getName())) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-            } else if (!target.isOnline()) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
-            } else {
-                target.setHealth(target.getHealth() - 5);
-                plugin.scheduleCooldown(player.getName());
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your SuperPunch ability on " + target.getName());
-                if (player.getHealth() > 0) {
-                    player.setHealth(0);
-                }
-            }
-        }
-
-    }
-
-    public void confuse(Player player, String args[]) {
-        Player target = Bukkit.getPlayerExact(args[1]);
-        if (args.length == 1) {
-
-            player.sendMessage(mcRP.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
-        } else if (args.length == 2) {
-            if (plugin.isCoolingDown(player.getName())) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You still have a " + plugin.getCooldownRemaining(player.getName()) + " second cooldown");
-            } else if (!target.isOnline()) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
-            } else {
-                plugin.scheduleCooldown(player.getName());
-                target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
-                player.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You have activated your Confuse ability on " + target.getName());
-                target.sendMessage(mcRP.getChatName() + ChatColor.GRAY + " You were confused by " + player.getName());
-            }
-        }
     }
 }

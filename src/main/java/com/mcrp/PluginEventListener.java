@@ -26,29 +26,34 @@
 package com.mcrp;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.*;
 
 public class PluginEventListener implements Listener {
 
-    public final mcRP plugin;
+    public final Plugin plugin;
 
-    public PluginEventListener(mcRP plugin) {
+    public PluginEventListener(Plugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        Player player = (Player) event.getEntity();
-        if (player.getType() == EntityType.PLAYER) {
+        if (event.getEntity().getType() == EntityType.PLAYER) {
+            Player player = (Player) event.getEntity();
+
             if (player.getHealth() <= 5) {
-                player.sendMessage(mcRP.getChatName() + ChatColor.YELLOW + " You are" + ChatColor.RED + " bleeding!");
+                player.sendMessage(Plugin.getChatName() + ChatColor.YELLOW + " You are" + ChatColor.RED + " bleeding!");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
@@ -59,5 +64,28 @@ public class PluginEventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
         event.getPlayer().sendMessage(plugin.getConfig().getString("WelcomeMessage"));
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            switch (e.getPlayer().getItemInHand().getType()) {
+                case SUGAR:
+                    plugin.getSkillManager().superSpeed(e.getPlayer());
+                    break;
+                case BLAZE_ROD:
+                    plugin.getSkillManager().might(e.getPlayer());
+                    break;
+                case PUMPKIN:
+                    plugin.getSkillManager().gills(e.getPlayer());
+                    break;
+                case LEATHER_BOOTS:
+                    plugin.getSkillManager().superJump(e.getPlayer());
+                    break;
+                case SULPHUR:
+                    plugin.getSkillManager().martyboom(e.getPlayer());
+                    break;
+            }
+        }
     }
 }
