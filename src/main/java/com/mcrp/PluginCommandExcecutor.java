@@ -56,33 +56,56 @@ public class PluginCommandExcecutor implements CommandExecutor {
 
                         return true;
                     }
-                } else if (args[0].equalsIgnoreCase("test")) {
-                    if (sender instanceof Player) {
-                        Player p = (Player) sender;
-                        p.setHealth(6);
-                        p.sendMessage("works");
-                        return true;
-                    } else {
-                        sender.sendMessage(Plugin.getChatName() + ChatColor.RED + " You are not a Player!");
-                        return true;
-                    }
-                } else if (args[0].equalsIgnoreCase("test2")) {
-                    if (!(sender instanceof Player)) {
-                        sender.sendMessage(Plugin.getChatName() + ChatColor.RED + " You are not a Player!");
-                        return true;
-                    } else {
-                        Player player = (Player) sender;
-                        if (player.getHealth() <= 5) {
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
+                } 
+                else if (args[0].equalsIgnoreCase("superspeed")) {
+                        sender.sendMessage(ChatColor.AQUA + "SuperSpeed gives you a temporary speed boost");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills superspeed or right-click whilst holding sugar");
+                
 
-                            player.sendMessage(Plugin.getChatName() + " works");
-                            return true;
-                        } else {
-                            player.sendMessage(Plugin.getChatName() + " You have too much hp");
-                            return true;
-                        }
-                    }
-                }
+                return false;
+            }else if (args[0].equalsIgnoreCase("might")) {
+                        sender.sendMessage(ChatColor.AQUA + "Might will give you a temporary damage boost");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills might or right-click whilst holding a blaze rod");
+                
+
+                return false;
+            }else if (args[0].equalsIgnoreCase("gills")) {
+                        sender.sendMessage(ChatColor.AQUA + "Gills allows you to breath under water for a while");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills gills or right-click whilst holding a pumpkin");
+                
+
+                return false;
+            }else if (args[0].equalsIgnoreCase("superjump")) {
+                        sender.sendMessage(ChatColor.AQUA + "SuperJump allows you a temporarily jump higher");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills superjump or right-click whilst holding leather boots");
+                
+
+                return false;
+            }else if (args[0].equalsIgnoreCase("martyboom")) {
+                        sender.sendMessage(ChatColor.AQUA + "Martyboom explode you and nearby targets");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills martyboom or right-click whilst holding sulphur");
+                
+
+                return false;
+            } else if (args[0].equalsIgnoreCase("bless")) {
+                        sender.sendMessage(ChatColor.AQUA + "Bless puts you back at full HP");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills bless or /skills bless <target>");
+                
+
+                return false;
+            } else if (args[0].equalsIgnoreCase("confuse")) {
+                        sender.sendMessage(ChatColor.AQUA + "Confuse allows you to confuse a target");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills confuse <target>");
+                
+
+                return false;
+            } else if (args[0].equalsIgnoreCase("superpunch")) {
+                        sender.sendMessage(ChatColor.AQUA + "SuperPunch a target through his armour");
+                        sender.sendMessage(ChatColor.GOLD + "Use /skills superpunch <target>");
+                
+
+                return false;
+            } 
 
                 return false;
             } else if (args.length > 1) {

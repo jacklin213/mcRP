@@ -66,7 +66,7 @@ public class PluginEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent e) {
-        if (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+        if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             switch (e.getPlayer().getItemInHand().getType()) {
                 case SUGAR:
                     plugin.getSkillManager().superSpeed(e.getPlayer());
