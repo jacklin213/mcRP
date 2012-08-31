@@ -103,7 +103,7 @@ public class PluginCommandExcecutor implements CommandExecutor {
                                 + "Not a valid command !");
                         return true;
                     }
-                    
+
                     if (args[1].equalsIgnoreCase("welcomemessage")
                             || args[1].equalsIgnoreCase("wm")) {
                         if (!(sender.hasPermission("mcRP.setwelcomemessage"))) {
@@ -195,13 +195,13 @@ public class PluginCommandExcecutor implements CommandExecutor {
 
             if (page == 1) {
                 player.sendMessage(ChatColor.YELLOW + " ------------ " + ChatColor.WHITE + "Help: mcRP Skills (Page 1)" + ChatColor.YELLOW + " ------------");
-                send(player, "/skills superspeed", "Gives you a speed boost !");
-                send(player, "/skills bless", "Heals you or a friend!");
-                send(player, "/skills might", "Increases your damage temporarily !");
-                send(player, "/skills gills", "Temporarily breathe underwater !");
-                send(player, "/skills superjump", "Jump higher than normal !");
-                send(player, "/skills martyboom", "Detonate yourself with huge impact !");
-                send(player, "/skills superpunch", "Do huge damage penetrating armour !");
+                player.sendMessage(ChatColor.GOLD + "/skills superspeed" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Gives you a speed boost");
+                player.sendMessage(ChatColor.GOLD + "/skills bless" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Heals you or a friend!");
+                player.sendMessage(ChatColor.GOLD + "/skills might" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Increases your damage temporarily");
+                player.sendMessage(ChatColor.GOLD + "/skills gills" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Temporarily breathe underwater");
+                player.sendMessage(ChatColor.GOLD + "/skills superjump" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Jump higher than normal");
+                player.sendMessage(ChatColor.GOLD + "/skills martyboom" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Detonate yourself with huge impact");
+                player.sendMessage(ChatColor.GOLD + "/skills superpunch" + ChatColor.GRAY + " - " + ChatColor.WHITE + "Do huge damage penetrating armour");
             } else {
                 player.sendMessage(ChatColor.RED + " Invalid page number specified. There is only 1 page right now.");
             }
@@ -210,9 +210,5 @@ public class PluginCommandExcecutor implements CommandExecutor {
         }
 
         return false;
-    }
-
-    private void send(Player player, String command, String description) {
-        player.sendMessage(ChatColor.GOLD + command + ChatColor.GRAY + " - " + ChatColor.WHITE + description);
     }
 }
