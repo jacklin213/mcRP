@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, The mcRP Team
+ * Copyright (c) 2012, The mcRP Team , LinCraft
  * All rights reserved.
  * 
  * Redistribution and use of this software in source and binary forms, with or without modification, are
@@ -39,7 +39,6 @@ public class PluginCommandExcecutor implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
         if (alias.equalsIgnoreCase("mcRP")) {
             if (args.length == 1) {

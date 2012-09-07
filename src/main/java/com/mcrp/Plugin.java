@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, The mcRP Team
+ * Copyright (c) 2012, The mcRP Team , LinCraft
  * All rights reserved.
  * 
  * Redistribution and use of this software in source and binary forms, with or without modification, are
