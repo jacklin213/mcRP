@@ -23,7 +23,7 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mcrp;
+package main.java.com.mcrp;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -125,7 +125,7 @@ public class PluginCommandExcecutor implements CommandExecutor {
 
             sender.sendMessage(ChatColor.DARK_GREEN + "+-----------------------------------+");
             sender.sendMessage(ChatColor.RED + "mcRP:" + ChatColor.GRAY + " Lightweight version of MCMMO!");
-            sender.sendMessage(ChatColor.GREEN + "By jacklin213, TickleNinja");
+            sender.sendMessage(ChatColor.GREEN + "By jacklin213, PineAbe");
             sender.sendMessage(ChatColor.GOLD + "Version: " + plugin.getDescription().getVersion());
             sender.sendMessage(ChatColor.DARK_GREEN + "+-----------------------------------+");
         } else if (alias.equalsIgnoreCase("skills")) {
