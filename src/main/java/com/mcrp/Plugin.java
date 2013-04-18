@@ -23,8 +23,9 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mcrp;
+package main.java.com.mcrp;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
@@ -47,7 +48,7 @@ public class Plugin extends JavaPlugin {
         
         getServer().getPluginManager().registerEvents(new PluginEventListener(this), this);
 
-        getConfig().options().copyDefaults(true);
+        createConfig();
         saveConfig();
 
         PluginCommandExcecutor listener = new PluginCommandExcecutor(this);
@@ -60,7 +61,15 @@ public class Plugin extends JavaPlugin {
     public void onDisable() {
         log.log(Level.INFO, getDescription().getName() + " is now disabled.");
     }
-    
+    public void createConfig() {
+        File file = new File(getDataFolder() + File.separator + "config.yml");
+  	  if (!file.exists()) {
+  	   this.getLogger().info(Level.WARNING + "You don't have a config file!!!");
+  	   this.getLogger().info(Level.WARNING + "Generating config.yml.....");
+  	   getConfig().options().copyDefaults(true);
+  	   this.saveConfig();
+  	  }
+  }
     public SkillManager getSkillManager() {
         return skillManager;
     }
