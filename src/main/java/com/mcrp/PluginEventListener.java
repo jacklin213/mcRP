@@ -23,7 +23,7 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.mcrp;
+package main.java.com.mcrp;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
@@ -47,21 +47,24 @@ public class PluginEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (event.getEntity().getType() == EntityType.PLAYER) {
+        if(plugin.getConfig().getBoolean("BleedMode") == true){
+            if (event.getEntity().getType() == EntityType.PLAYER) {
             Player player = (Player) event.getEntity();
-
-            if (player.getHealth() <= 5) {
+            if (player.getHealth() <= 8) {
                 player.sendMessage(Plugin.getChatName() + ChatColor.YELLOW + " You are" + ChatColor.RED + " bleeding!");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
+                }
             }
-        }
+    	}
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage(plugin.getConfig().getString("WelcomeMessage"));
+    	if(plugin.getConfig().getBoolean("WelcomeMessageEnabled") == true){
+        //event.getPlayer().sendMessage(plugin.getConfig().getString("WelcomeMessage"));
+    	}
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -83,6 +86,8 @@ public class PluginEventListener implements Listener {
                 case SULPHUR:
                     plugin.getSkillManager().martyboom(e.getPlayer());
                     break;
+			    default:
+				    break;
             }
         }
     }
