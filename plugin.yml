@@ -1,0 +1,40 @@
+name: mcRP
+version: 1.2.3
+description: Lightweight MineCraft Roleplay
+
+main: com.mcRP.Plugin
+
+commands:
+  mcrp:
+    description: Information command
+  binds:
+    description: View skill aliases
+  skills:
+    description: View available skills and use a skill
+
+permissions:
+  mcrp.*:
+    default: op
+    description: Allows usage of all commands and bypasses
+    children:
+      mcrp.reload: true
+      mcrp.setwelcomemessage: true
+      mcrp.realism.*: true
+  mcrp.realism.*:
+    default: op
+    description: Allows bypass of all realism
+    children:
+      mcrp.realism.exempt: true
+      mcrp.realism.treedestroy: true
+  mcrp.reload:
+    description: Reload plugin
+    default: op
+  mcrp.setwelcomemessage:
+    description: Set welcome message
+    default: op
+  mcrp.realism.exempt:
+    description: Avoid bleeding and diseases
+    default: op
+  mcrp.realism.treedestroy:
+    description: Destroy trees instantly with an axe
+    default: op

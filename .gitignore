@@ -1,2 +1,10 @@
-/target/
-/.*
+# Eclipse project files
+.classpath
+.project
+
+# Java class files
+*.class
+
+# generated files
+bin/
+.settings/

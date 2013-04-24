@@ -1,0 +1,8 @@
+WelcomeMessageEnabled: true
+WelcomeMessage: /mcrp welcomemessage to set the welcome message
+Realism:
+  BleedMode: true
+  TreeDestroy: true
+  Diseases: true
+Skills:
+  Cooldown: 60
