@@ -24,8 +24,8 @@ public class DiseaseManager {
 				new Runnable() {
 					public void run() {
 						int random = new Random().nextInt(5);
-						List onlinePlayers = Arrays.asList(Bukkit.getServer().getOnlinePlayers());
-						Iterator iterator = onlinePlayers.iterator();
+						List<Player> onlinePlayers = Arrays.asList(Bukkit.getServer().getOnlinePlayers());
+						Iterator<Player> iterator = onlinePlayers.iterator();
 						while (iterator.hasNext()) {
 							int random2 = new Random().nextInt(5);
 							if (random == random2) {
@@ -50,8 +50,8 @@ public class DiseaseManager {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin,
 				new Runnable() {
 					public void run() {
-						List onlinePlayers = Arrays.asList(Bukkit.getServer().getOnlinePlayers());
-						Iterator iterator = onlinePlayers.iterator();
+						List<Player> onlinePlayers = Arrays.asList(Bukkit.getServer().getOnlinePlayers());
+						Iterator<Player> iterator = onlinePlayers.iterator();
 						while (iterator.hasNext()) {
 							Player onlinePlayer = (Player) iterator.next();
 							if (DiseaseManager.this.plugin.hm.containsKey(onlinePlayer)) {

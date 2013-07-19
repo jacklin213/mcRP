@@ -13,7 +13,7 @@ import com.mcRP.Managers.SkillManager;
 
 public class Plugin extends JavaPlugin {
 	public static final Logger log = Logger.getLogger("Minecraft");
-	public final HashMap<Player, Integer> hm = new HashMap();
+	public final HashMap<Player, Integer> hm = new HashMap<Player, Integer>();
 	private SkillManager skillManager;
 	private DiseaseManager diseaseManager;
 

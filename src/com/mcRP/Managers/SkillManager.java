@@ -11,7 +11,7 @@ import com.mcRP.Plugin;
 
 public class SkillManager {
 	private final Plugin plugin;
-	private HashMap<Player, Integer> cooldowns = new HashMap();
+	private HashMap<Player, Integer> cooldowns = new HashMap<Player, Integer>();
 
 	public SkillManager(Plugin plugin) {
 		this.plugin = plugin;
