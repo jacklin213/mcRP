@@ -11,7 +11,7 @@ import com.mcRP.Plugin;
 
 public class SkillManager {
 	private final Plugin plugin;
-	private HashMap<Player, Integer> cooldowns = new HashMap<Player, Integer>();
+	private HashMap<String, Long> cooldowns = new HashMap<String, Long>();
 
 	public SkillManager(Plugin plugin) {
 		this.plugin = plugin;
@@ -19,28 +19,37 @@ public class SkillManager {
 
 	private void scheduleCooldown(final Player player) {
 		int cooldown = this.plugin.getConfig().getInt("Skills.Cooldown");
-		this.cooldowns.put(player, Integer.valueOf(cooldown));
-
-		Bukkit.getScheduler().runTaskTimerAsynchronously(this.plugin, new Runnable() {
+		final String playerName = player.getName();
+		this.cooldowns.put(playerName, System.currentTimeMillis());
+		
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
+			@Override
 			public void run() {
-				int time = ((Integer)SkillManager.this.cooldowns.get(player)).intValue();
-
-				if (time > 0)
-					SkillManager.this.cooldowns.put(player, Integer.valueOf(time - 1));
-				else
-					SkillManager.this.cooldowns.remove(player);
+				SkillManager.this.cooldowns.remove(playerName);
 			}
+		}, cooldown*20);
+	}
+	
+	private Integer getSecondsLeft(final Player player){
+		int cooldown = this.plugin.getConfig().getInt("Skills.Cooldown");
+		String playerName = player.getName();
+		if (this.cooldowns.containsKey(playerName)){
+			long oldTime = this.cooldowns.get(playerName);
+			long curTime = System.currentTimeMillis();
+			int secondsLeft = (int)((cooldown - (curTime - oldTime)/1000));
+			return secondsLeft;
+		} else {
+			return 0;
 		}
-		, 0L, 20L);
 	}
 
 	private boolean isCoolingDown(Player player) {
-		return this.cooldowns.get(player) != null;
+		return this.cooldowns.get(player.getName()) != null;
 	}
 	
 	public void superSpeed(Player player) {
 		if (isCoolingDown(player)) {
- 	     player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+ 	     player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 		} else {
 			scheduleCooldown(player);
 			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your SuperSpeed ability");
@@ -51,7 +60,7 @@ public class SkillManager {
 	public void bless(Player player, String[] args) {
 		if (args.length == 1) {
 			if (isCoolingDown(player)) {
-				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 			} else {
 				scheduleCooldown(player);
 				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your Bless ability");
@@ -62,7 +71,7 @@ public class SkillManager {
 			if (!target.isOnline()) {
 				player.sendMessage(Plugin.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
 			} else if (isCoolingDown(player)) {
-				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 			} else {
 				scheduleCooldown(player);
         	player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your Bless ability on " + target.getName());
@@ -74,7 +83,7 @@ public class SkillManager {
 
 	public void might(Player player) {
 		if (isCoolingDown(player)) {
-			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 		} else {
 			scheduleCooldown(player);
 			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your Might ability");
@@ -84,7 +93,7 @@ public class SkillManager {
 
 	public void gills(Player player) {
 		if (isCoolingDown(player)) {
-			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 		} else {
 			scheduleCooldown(player);
 			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your Gills ability");
@@ -94,7 +103,7 @@ public class SkillManager {
 
 	public void superJump(Player player) {
 		if (isCoolingDown(player)) {
-			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 		} else {
 			scheduleCooldown(player);
 			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your SuperJump ability");
@@ -104,7 +113,7 @@ public class SkillManager {
 
 	public void martyboom(Player player) {
 		if (isCoolingDown(player)) {
-			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 		} else {
 			scheduleCooldown(player);
 			player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You have activated your martyboom ability");
@@ -121,7 +130,7 @@ public class SkillManager {
 			player.sendMessage(Plugin.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
 		else if (args.length == 2)
 			if (isCoolingDown(player)) {
-				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 			} else if (!target.isOnline()) {
 				player.sendMessage(Plugin.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
 			} else {
@@ -140,7 +149,7 @@ public class SkillManager {
 			player.sendMessage(Plugin.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
 		} else if (args.length == 2)
 			if (isCoolingDown(player)) {
-				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.cooldowns.get(player) + " second cooldown");
+				player.sendMessage(Plugin.getChatName() + ChatColor.GRAY + " You still have a " + this.getSecondsLeft(player) + " second cooldown");
 			} else if (!target.isOnline()) {
 				player.sendMessage(Plugin.getChatName() + ChatColor.RED + " Player" + ChatColor.GRAY + args[0] + ChatColor.RED + "is not online!");
 			} else {

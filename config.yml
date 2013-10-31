@@ -6,3 +6,5 @@ Realism:
   Diseases: true
 Skills:
   Cooldown: 60
+UpdateCheck: true
+AutoUpdate: true

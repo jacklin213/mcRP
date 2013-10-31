@@ -40,7 +40,9 @@ public class PluginEventListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(PlayerJoinEvent event) {
-		this.plugin.getConfig().getBoolean("WelcomeMessageEnabled");
+		if (this.plugin.getConfig().getBoolean("WelcomeMessageEnabled")){
+			event.getPlayer().sendMessage(Plugin.getChatName()+ " " + this.plugin.getConfig().getString("WelcomeMessage"));
+		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -54,34 +56,32 @@ public class PluginEventListener implements Listener {
 			int y = block.getY();
 			int z = block.getZ();
 			int total = 0;
-			int type = event.getPlayer().getItemInHand().getTypeId();
+			Material type = event.getPlayer().getItemInHand().getType();
 			Block top = null;
 			int up = 1;
 			while (up == 1) {
 				top = block.getWorld().getBlockAt(x, y, z);
 				if (top.getType() == Material.LOG) {
-					if ((type == 258) || (type == 271) || (type == 275)
-							|| (type == 279) || (type == 286)) {
+					if ((type == Material.WOOD_AXE) || 
+							(type == Material.STONE_AXE) || 
+							(type == Material.IRON_AXE) || 
+							(type == Material.DIAMOND_AXE) || 
+							(type == Material.GOLD_AXE)) {
 						y++;
 						top.breakNaturally();
 						total++;
 					}
 				} else {
-					event.getPlayer()
-							.getItemInHand()
-							.setDurability(
-									(short) (event.getPlayer().getItemInHand()
-											.getDurability() + total));
+					event.getPlayer().getItemInHand().setDurability((short) (event.getPlayer().getItemInHand().getDurability() + total));
 					up = 2;
 				}
 			}
 		}
 	}
-
+	/*
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if ((e.getAction() == Action.RIGHT_CLICK_AIR)
-				|| (e.getAction() == Action.RIGHT_CLICK_BLOCK))
+		if ((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK))
 			switch (e.getPlayer().getItemInHand().getTypeId()) {
 			case 353:
 				this.plugin.getSkillManager().superSpeed(e.getPlayer());
@@ -101,16 +101,43 @@ public class PluginEventListener implements Listener {
 			case 373:
 				if (this.plugin.hm.containsKey(e.getPlayer())) {
 					this.plugin.hm.remove(e.getPlayer());
-					e.getPlayer()
-							.sendMessage(
-									ChatColor.AQUA
-											+ "You have drank water and are no longer dehydrated");
-					e.getPlayer().getItemInHand()
-							.setType(Material.GLASS_BOTTLE);
+					e.getPlayer().sendMessage(ChatColor.AQUA + "You have drank water and are no longer dehydrated");
+					e.getPlayer().getItemInHand().setType(Material.GLASS_BOTTLE);
 				} else {
 					e.setCancelled(true);
 				}
 				break;
 			}
+	}*/
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerInteract(PlayerInteractEvent e) {
+		if ((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)){
+			Material item = e.getPlayer().getItemInHand().getType();
+			if (item == Material.SUGAR){
+				this.plugin.getSkillManager().superSpeed(e.getPlayer());
+			}
+			if (item == Material.BLAZE_ROD){
+				this.plugin.getSkillManager().might(e.getPlayer());
+			}
+			if (item == Material.PUMPKIN){
+				this.plugin.getSkillManager().gills(e.getPlayer());	
+			}
+			if (item == Material.LEATHER_BOOTS){
+				this.plugin.getSkillManager().superJump(e.getPlayer());
+			}
+			if (item == Material.SULPHUR){
+				this.plugin.getSkillManager().martyboom(e.getPlayer());
+			}
+			if (item == Material.POTION){
+				if (this.plugin.hm.containsKey(e.getPlayer())) {
+					this.plugin.hm.remove(e.getPlayer());
+					e.getPlayer().sendMessage(ChatColor.AQUA + "You have drank water and are no longer dehydrated");
+					e.getPlayer().getItemInHand().setType(Material.GLASS_BOTTLE);
+				} else {
+					e.setCancelled(true);
+				}
+			}
+		}
 	}
 }
