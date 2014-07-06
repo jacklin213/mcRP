@@ -1,8 +1,8 @@
 name: mcRP
-version: 1.2.4
+version: 1.3
 description: Lightweight MineCraft Roleplay
 
-main: com.mcRP.Plugin
+main: me.jacklin213.mcrp.mcRP
 
 commands:
   mcrp:
@@ -17,24 +17,38 @@ permissions:
     default: op
     description: Allows usage of all commands and bypasses
     children:
+      mcrp.realism.*: true
       mcrp.reload: true
       mcrp.setwelcomemessage: true
-      mcrp.realism.*: true
+      mcrp.skills.nocooldown: true
   mcrp.realism.*:
     default: op
-    description: Allows bypass of all realism
+    description: Exempt from all diseases and recieve all realism features
     children:
-      mcrp.realism.exempt: true
+      mcrp.diseases.exempt.*: true
+      mcrp.realism.bleed.exempt: true
       mcrp.realism.treedestroy: true
+  mcrp.diseases.exempt.*:
+    default: op
+    description: Bypass all diseases
+    children: 
+      mcrp.diseases.dehydration.exempt: true
+      
+  mcrp.diseases.dehydration.exempt: 
+    description: Player is exempt from dehydration
+    default: false
+  mcrp.realism.bleed.exempt:
+    description: Avoid bleeding and diseases
+    default: false
+  mcrp.realism.treedestroy:
+    description: Destroy trees instantly with an axe
+    default: false
   mcrp.reload:
     description: Reload plugin
     default: op
   mcrp.setwelcomemessage:
     description: Set welcome message
     default: op
-  mcrp.realism.exempt:
-    description: Avoid bleeding and diseases
-    default: op
-  mcrp.realism.treedestroy:
-    description: Destroy trees instantly with an axe
+  mcrp.skill.nocooldown:
+    description: Allows player to have no cooldown for skills
     default: op

@@ -1,10 +1,79 @@
-WelcomeMessageEnabled: true
-WelcomeMessage: /mcrp welcomemessage to set the welcome message
-Realism:
-  BleedMode: true
-  TreeDestroy: true
-  Diseases: true
-Skills:
-  Cooldown: 60
+##################################################
+# +--------------------------------------------+ #
+# |                   [mcRP]                   | #
+# +--------------------------------------------+ #
+##################################################
+######==============IMPORTANT==============#######
+##### Remember to back up your configuration #####
+##################################################
+# Copyright 2013-2014 Licence LinCraft(?)
+# http://dev.bukkit.org/licenses/2049-lin-craft-license/ 
+
+# Welcome Message is enabled by default
+WelcomeMessage:
+  Enabled: true
+  Message: /mcrp set welcomemessage to set the welcome message
+
 UpdateCheck: true
 AutoUpdate: true
+  
+##################################################
+# +--------------------------------------------+ #
+# |                  Realism                   | #
+# +--------------------------------------------+ #
+##################################################
+# All Realism Configuration are bellow
+Realism:
+  # Set to false to disable all Realism
+  Enabled: true
+  # When players health bar is left with 3 hearts, the player will bleed out
+  BleedMode: true
+  # Allows player to destroy whole tree when log is cut with an axe
+  TreeDestroy: true
+  # Random chance of geting Diseases, to be cured you need to find an antidote to the set potion effect
+  Diseases: 
+    # Set to false to disable all Diseases
+    Enabled: true
+    Dehydration:
+      Enabled: true
+      # Chances out of 100 of geting infected. Format: Percentage
+      InfectChance: 5
+      # How long should it take before Diseases are given out again. Format: Seconds
+      InfectTime: 600
+
+##################################################
+# +--------------------------------------------+ #
+# |                   Skills                   | #
+# +--------------------------------------------+ #
+##################################################
+# All skills configuration are listed bellow, default cooldown for all skills is 60 seconds
+# Default duration for passive skills are 10 seconds
+# Permissions are documented on the plugin page
+# http://dev.bukkit.org/bukkit-plugins/mcrp/
+Skills:
+  Bless:
+    # How long till player is allowed to use skill again. Format: Seconds
+    Cooldown: 60
+    # How long the potion effect of the skill will last for. Format: Seconds
+    Duration: 10
+  Confuse:
+    Cooldown: 60
+    # How long the potion effect of the skill will last for. Format: Seconds
+    Duruation: 10
+  Gills:
+    Cooldown: 60
+    Duration: 10
+  MartyBoom:
+    Cooldown: 60
+  Might:
+    Cooldown: 60
+    Duration: 10
+  SuperJump:
+    Cooldown: 60
+    Duration: 10
+  SuperPunch:
+    Cooldown: 60    
+  SuperSpeed:
+    Cooldown: 60
+    Durruation: 10
+#======================[End]=====================#

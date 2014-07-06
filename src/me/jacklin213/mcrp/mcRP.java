@@ -1,29 +1,29 @@
-package com.mcRP;
+package me.jacklin213.mcrp;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import me.jacklin213.mcrp.Updater.UpdateResult;
+import me.jacklin213.mcrp.Updater.UpdateType;
+import me.jacklin213.mcrp.managers.DiseaseManager;
+import me.jacklin213.mcrp.managers.SkillManager;
+
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mcRP.Updater.UpdateResult;
-import com.mcRP.Updater.UpdateType;
-import com.mcRP.Managers.DiseaseManager;
-import com.mcRP.Managers.SkillManager;
 
-public class Plugin extends JavaPlugin {
+public class mcRP extends JavaPlugin {
 	
 	public Logger log;
-	public final HashMap<Player, Integer> hm = new HashMap<Player, Integer>();
-	private SkillManager skillManager = new SkillManager(this);
+	public final HashMap<String, Integer> hm = new HashMap<String, Integer>();
+	public SkillManager SM = new SkillManager(this);
 	private DiseaseManager diseaseManager = new DiseaseManager(this);
 	private Updater updater;
 	private PluginCommandExcecutor commandExecutor = new PluginCommandExcecutor(this);
 
 	public static String getChatName() {
-		return ChatColor.GOLD + "[mcRP]" + ChatColor.RESET;
+		return ChatColor.GOLD + "[" + ChatColor.YELLOW + "mcRP" + ChatColor.GOLD + "] " + ChatColor.RESET;
 	}
 
 	public void onEnable() {
@@ -33,7 +33,7 @@ public class Plugin extends JavaPlugin {
 		this.diseaseManager.giveDisease();
 		this.diseaseManager.diseaseChecks();
 
-		getServer().getPluginManager().registerEvents(new PluginEventListener(this), this);
+		getServer().getPluginManager().registerEvents(new mcRPListener(this), this);
 
 		getCommand("mcrp").setExecutor(commandExecutor);
 		getCommand("skills").setExecutor(commandExecutor);
@@ -55,13 +55,13 @@ public class Plugin extends JavaPlugin {
 	    if (!file.exists()) {
 	    	log.warning("You don't have a config file!!!");
 	    	log.warning("Generating config.yml.....");
-	    	getConfig().options().copyDefaults(true);
-	    	saveConfig();
+	    	saveDefaultConfig();
+	    	log.info("config.yml generated!");
 	    }
 	}
 	
 	public SkillManager getSkillManager() { 
-		return this.skillManager; 
+		return this.SM; 
 	}
 	
 	private void setLogger(){
