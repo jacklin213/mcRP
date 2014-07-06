@@ -6,10 +6,13 @@ import java.util.logging.Logger;
 
 import me.jacklin213.mcrp.Updater.UpdateResult;
 import me.jacklin213.mcrp.Updater.UpdateType;
+import me.jacklin213.mcrp.commands.PluginCommandExcecutor;
+import me.jacklin213.mcrp.managers.CommandManager;
 import me.jacklin213.mcrp.managers.DiseaseManager;
 import me.jacklin213.mcrp.managers.SkillManager;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -19,6 +22,7 @@ public class mcRP extends JavaPlugin {
 	public final HashMap<String, Integer> hm = new HashMap<String, Integer>();
 	public SkillManager SM = new SkillManager(this);
 	private DiseaseManager diseaseManager = new DiseaseManager(this);
+	private CommandManager commandManager = new CommandManager(this);
 	private Updater updater;
 	private PluginCommandExcecutor commandExecutor = new PluginCommandExcecutor(this);
 
@@ -35,7 +39,7 @@ public class mcRP extends JavaPlugin {
 
 		getServer().getPluginManager().registerEvents(new mcRPListener(this), this);
 
-		getCommand("mcrp").setExecutor(commandExecutor);
+		getCommand("mcrp").setExecutor(commandManager);
 		getCommand("skills").setExecutor(commandExecutor);
 	    getCommand("binds").setExecutor(commandExecutor);
 	    

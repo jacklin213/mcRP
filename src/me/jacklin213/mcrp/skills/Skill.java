@@ -41,7 +41,7 @@ public abstract class Skill {
      *
      * @return the Skill's name
      */
-    public String getSkillName() {
+    public String getName() {
         SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
         // Ternary operator
         return info == null ? this.getClass().getSimpleName() : info.name();
@@ -52,9 +52,40 @@ public abstract class Skill {
      *
      * @return the description of Skill
      */
-    public String getSkillDescription() {
+    public String getDescription() {
         SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
         return info == null ? "" : info.description();
+    }
+    
+    /**
+     * Gets the description of this Skill
+     *
+     * @return the description of Skill
+     */
+    public String getUsage() {
+        SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
+        return info == null ? "" : info.usage();
+    }
+    
+    /**
+     * Gets the SkillType of this Skill
+     *
+     * @return the SkillType name
+     */
+    public SkillType getSkillType() {
+        SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
+        // Ternary operator
+        return info == null ? SkillType.OTHER : info.skilltype();
+    }
+    
+    /**
+     * Gets the cooldown of the Skill
+     *
+     * @return the cooldown in seconds
+     */
+    public int getCooldown() {
+    	SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
+    	return info == null ? Integer.valueOf(60) : info.cooldown();
     }
     
     /**
@@ -62,7 +93,7 @@ public abstract class Skill {
      *
      * @return the cooldown in seconds
      */
-    public int getCoolDown(Player player) {
+    public int getCooldown(Player player) {
         SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
         if (player.hasPermission("mcrp.skills.nocooldown")) {
         	return 0;
@@ -90,6 +121,13 @@ public abstract class Skill {
 		return duration * 20; 
     }
 	
+    public boolean hasCooldown() {
+    	if (getCooldown() == 0) {
+    		return false;
+    	}
+    	return true;
+    }
+    
 	/**
      * The annotation required for a skill to be used. <br>
      * This annotation contains all info on a skill
@@ -100,10 +138,25 @@ public abstract class Skill {
         String name() default ""; //"" defaults to class name
 
         String description() default "";
+        
+        String usage() default "";
+        
+        SkillType skilltype() default SkillType.OTHER;
 
         int cooldown() default 60;
         
         int duration() default 10;
 
+    }
+    
+    /**
+     * Enum to see if a Skill is an ACTIVE, PASSIVE, BOTH or OTHER
+     *
+     */
+    public enum SkillType {
+    	PASSIVE,
+    	ACTIVE,
+    	BOTH,
+    	OTHER
     }
 }

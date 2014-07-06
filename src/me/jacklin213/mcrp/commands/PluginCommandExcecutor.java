@@ -1,4 +1,6 @@
-package me.jacklin213.mcrp;
+package me.jacklin213.mcrp.commands;
+
+import me.jacklin213.mcrp.mcRP;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -6,6 +8,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * As of mcRP v1.3 This class is no longer used. It is kept for backup
+ * @author jack
+ *
+ */
 public class PluginCommandExcecutor implements CommandExecutor {
 	public final mcRP plugin;
 
@@ -30,42 +37,42 @@ public class PluginCommandExcecutor implements CommandExecutor {
 					}
 				} 
 				if (args[0].equalsIgnoreCase("superspeed")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("superspeed").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("superspeed").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills superspeed or right-click whilst holding sugar");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("might")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("might").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("might").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills might or right-click whilst holding a blaze rod");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("gills")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("gills").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("gills").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills gills or right-click whilst holding a pumpkin");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("superjump")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("superjump").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("superjump").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills superjump or right-click whilst holding leather boots");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("martyboom")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("martyboom").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("martyboom").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills martyboom or right-click whilst holding sulphur");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("bless")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("bless").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("bless").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills bless or /skills bless <target>");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("confuse")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("confuse").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("confuse").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills confuse <target>");
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("superpunch")) {
-					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("superpunch").getSkillDescription());
+					sender.sendMessage(ChatColor.AQUA + plugin.SM.getSkill("superpunch").getDescription());
 					sender.sendMessage(ChatColor.GOLD + "Use /skills superpunch <target>");
 					return false;
 	    		} else {
