@@ -146,7 +146,7 @@ public abstract class Skill {
         int cooldown() default 60;
         
         int duration() default 10;
-
+        
     }
     
     /**
@@ -157,6 +157,15 @@ public abstract class Skill {
     	PASSIVE,
     	ACTIVE,
     	BOTH,
-    	OTHER
+    	OTHER;
+    	
+    	public static SkillType getType(String string) {
+    		for (SkillType type: SkillType.values()) {
+    			if (type.toString().equalsIgnoreCase(string)) {
+    				return type;
+    			}
+    		}
+    		return null;
+    	}
     }
 }

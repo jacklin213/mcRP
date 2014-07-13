@@ -14,7 +14,7 @@ public class CmdReload extends SubCommand {
 		GOLD + "Use: " + AQUA + "/mcrp reload" + YELLOW + " to reload mcRP config" };
 
 	public CmdReload(mcRP instance) {
-		super(instance, NAME, COMMAND, USAGE, HELP, PERMISSIONNODE);
+		super(instance, NAME, COMMAND, USAGE, PERMISSIONNODE, HELP);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class CmdSkillInfo extends SubCommand {
 	};
 
 	public CmdSkillInfo(mcRP instance) {
-		super(instance, NAME, COMMAND, USAGE, HELP, PERMISSIONNODE);
+		super(instance, NAME, COMMAND, USAGE, PERMISSIONNODE, HELP);
 	}
 
 	@Override

@@ -49,14 +49,14 @@ public class SubCommand {
     private final String[] help;
     private final String permissionNode;
 
-    public SubCommand(mcRP instance, String name, String command, String usage, String help[], String permissionNode) {
+    public SubCommand(mcRP instance, String name, String command, String usage, String permissionNode, String help[]) {
         this.plugin = instance;
         this.config = plugin.getConfig();
     	this.name = name;
         this.command = command;
         this.usage = usage;
-        this.help = help;
         this.permissionNode = permissionNode;
+        this.help = help;
     }
 
     public void run(CommandSender sender, String[] args) {
