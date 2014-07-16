@@ -39,8 +39,8 @@ public class mcRPListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(PlayerJoinEvent event) {
-		if (this.plugin.getConfig().getBoolean("WelcomeMessage.Enabled")){
-			event.setJoinMessage(mcRP.getChatName() + this.plugin.getConfig().getString("WelcomeMessage.Message"));
+		if (this.plugin.getConfig().getBoolean("Motd.Enabled")){
+			event.setJoinMessage(mcRP.getChatName() + this.plugin.getConfig().getString("Motd.Message"));
 		}
 	}
 
@@ -123,8 +123,8 @@ public class mcRPListener implements Listener {
 				this.plugin.getSkillManager().executeSkill(event.getPlayer(), "martyboom", null);
 			}
 			if (item == Material.POTION){
-				if (this.plugin.hm.containsKey(event.getPlayer())) {
-					this.plugin.hm.remove(event.getPlayer());
+				if (this.plugin.diseasePlayerList.contains(event.getPlayer())) {
+					this.plugin.diseasePlayerList.remove(event.getPlayer());
 					event.getPlayer().sendMessage(ChatColor.AQUA + "You have drank water and are no longer dehydrated");
 					event.getPlayer().getItemInHand().setType(Material.GLASS_BOTTLE);
 				} else {

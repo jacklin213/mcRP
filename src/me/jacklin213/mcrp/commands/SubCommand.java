@@ -24,13 +24,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
 public class SubCommand {
 
 	public final mcRP plugin;
-    public final Configuration config; 
 	public static final String CHAT_NAME = mcRP.getChatName();
 	public static final ChatColor RED = ChatColor.RED;
     public static final ChatColor YELLOW = ChatColor.YELLOW;
@@ -40,8 +38,8 @@ public class SubCommand {
     public static final ChatColor GOLD = ChatColor.GOLD;
     public static final ChatColor AQUA = ChatColor.AQUA;
     public static final Server SERVER = Bukkit.getServer();
-    public static final String PERMISSIONS_ERROR = RED + "Insufficient Permissions.";
-    public static final String MENU_END = "-----------------------------------------------------";
+    public static final String NO_PERMS = RED + "Insufficient Permissions.";
+    public static final String PLAYER_ONLY = RED + "This command can only be used by players.";
 
     private final String name;
     private final String command;
@@ -51,7 +49,6 @@ public class SubCommand {
 
     public SubCommand(mcRP instance, String name, String command, String usage, String permissionNode, String help[]) {
         this.plugin = instance;
-        this.config = plugin.getConfig();
     	this.name = name;
         this.command = command;
         this.usage = usage;
@@ -63,7 +60,7 @@ public class SubCommand {
         if (!permissionNode.equalsIgnoreCase("none") || sender.hasPermission(permissionNode)) {
             execute(sender, args);
         } else {
-        	sender.sendMessage(PERMISSIONS_ERROR + " (" + WHITE + permissionNode + RED + ")");
+        	sender.sendMessage(NO_PERMS + " (" + WHITE + permissionNode + RED + ")");
         }
     }
 
@@ -72,7 +69,7 @@ public class SubCommand {
     }
 
     public void sendHelp(CommandSender cs) {
-        cs.sendMessage(GOLD + "==[" + YELLOW + getName() + GOLD + "]==");
+        cs.sendMessage(GOLD + "========[" + YELLOW + getName() + GOLD + "]========");
         cs.sendMessage(GOLD + "Usage: " + YELLOW + (cs instanceof Player ? "/" : "") + getUsage());
         cs.sendMessage(GOLD + "Permission: " + AQUA + getPermissionNode());
         for (String string : getHelp()) {

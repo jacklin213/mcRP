@@ -33,7 +33,7 @@ public class DiseaseManager {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, infectTime, 1));
 								player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, infectTime, 1));
 								player.sendMessage(mcRP.getChatName() + ChatColor.GRAY+ "You have become dehydrated");
-								plugin.hm.put(player.getUniqueId().toString(), Integer.valueOf(1));
+								plugin.diseasePlayerList.add(player.getUniqueId().toString());
 							}
 						}
 					}
@@ -66,7 +66,7 @@ public class DiseaseManager {
 			Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 				public void run() {
 					for (Player player : Bukkit.getOnlinePlayers()) {
-						if (plugin.hm.containsKey(player.getUniqueId().toString())) {
+						if (plugin.diseasePlayerList.contains(player.getUniqueId().toString())) {
 							player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, infectTime, 1));
 							player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, infectTime, 1));
 							player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, infectTime, 1));

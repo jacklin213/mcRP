@@ -5,7 +5,6 @@ import me.jacklin213.mcrp.skills.Skill.SkillInfo;
 import me.jacklin213.mcrp.skills.Skill.SkillType;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;

@@ -3,7 +3,13 @@ package me.jacklin213.mcrp.managers;
 import java.util.ArrayList;
 
 import me.jacklin213.mcrp.mcRP;
+import me.jacklin213.mcrp.commands.CmdBinds;
+import me.jacklin213.mcrp.commands.CmdHelp;
+import me.jacklin213.mcrp.commands.CmdInfo;
+import me.jacklin213.mcrp.commands.CmdMotd;
 import me.jacklin213.mcrp.commands.CmdReload;
+import me.jacklin213.mcrp.commands.CmdSkillInfo;
+import me.jacklin213.mcrp.commands.CmdSkills;
 import me.jacklin213.mcrp.commands.SubCommand;
 
 import org.bukkit.command.Command;
@@ -18,12 +24,23 @@ public class CommandManager implements CommandExecutor {
 
     public CommandManager(mcRP instance) {
     	plugin = instance;
+    	commands.add(new CmdHelp()); //0
+    	// Index of 1 starting bellow
+    	commands.add(new CmdBinds()); //1
+    	commands.add(new CmdInfo(plugin));
+    	commands.add(new CmdMotd(plugin));
         commands.add(new CmdReload(plugin));
+        commands.add(new CmdSkillInfo(plugin)); //5
+        commands.add(new CmdSkills(plugin));  
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (commandLabel.equalsIgnoreCase("mcrp")) {
+        	if (args.length == 0) {
+        		commands.get(2).run(sender, args);
+        		return true;
+        	}
         	if (args.length >= 1) {
                 String command = args[0];
                 // Shift args down
@@ -39,14 +56,25 @@ public class CommandManager implements CommandExecutor {
                 }
                 // Command not found, send help
                 commands.get(0).run(sender, null);
+                return true;
             } else {
                 // Send help
                 commands.get(0).run(sender, null);
+                return true;
             }
         }
-        if (commandLabel.equalsIgnoreCase("")) {
-        	
+        if (commandLabel.equalsIgnoreCase("skillinfo")) {
+        	commands.get(5).run(sender, args);
+        	return true;
         }
-        return true;
+        if (commandLabel.equalsIgnoreCase("skills")) {
+        	commands.get(6).run(sender, args);
+        	return true;
+        }
+        if (commandLabel.equalsIgnoreCase("binds")) {
+        	commands.get(1).run(sender, args);
+        	return true;
+        }
+        return false;
     }
 }

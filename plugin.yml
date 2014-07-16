@@ -1,16 +1,18 @@
 name: mcRP
-version: 1.3
+version: 1.3.0
 description: Lightweight MineCraft Roleplay
 
 main: me.jacklin213.mcrp.mcRP
 
 commands:
   mcrp:
-    description: Information command
+    description: Main command
   binds:
-    description: View skill aliases
+    description: View skills that are item bound
   skills:
     description: View available skills and use a skill
+  skillinfo:
+    description: View detailed info about skills
 
 permissions:
   mcrp.*:
@@ -19,7 +21,7 @@ permissions:
     children:
       mcrp.realism.*: true
       mcrp.reload: true
-      mcrp.setwelcomemessage: true
+      mcrp.setmotd: true
       mcrp.skills.nocooldown: true
   mcrp.realism.*:
     default: op
@@ -38,7 +40,7 @@ permissions:
     description: Player is exempt from dehydration
     default: false
   mcrp.realism.bleed.exempt:
-    description: Avoid bleeding and diseases
+    description: Avoid bleeding
     default: false
   mcrp.realism.treedestroy:
     description: Destroy trees instantly with an axe
@@ -46,9 +48,9 @@ permissions:
   mcrp.reload:
     description: Reload plugin
     default: op
-  mcrp.setwelcomemessage:
-    description: Set welcome message
+  mcrp.setmotd:
+    description: Set message of the day
     default: op
-  mcrp.skill.nocooldown:
+  mcrp.skills.nocooldown:
     description: Allows player to have no cooldown for skills
     default: op

@@ -10,9 +10,9 @@
 # http://dev.bukkit.org/licenses/2049-lin-craft-license/ 
 
 # Welcome Message is enabled by default
-WelcomeMessage:
+Motd:
   Enabled: true
-  Message: /mcrp set welcomemessage to set the welcome message
+  Message: /mcrp motd set <message> to change your message
 
 UpdateCheck: true
 AutoUpdate: true

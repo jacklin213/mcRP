@@ -1,30 +1,28 @@
 package me.jacklin213.mcrp;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import me.jacklin213.mcrp.Updater.UpdateResult;
 import me.jacklin213.mcrp.Updater.UpdateType;
-import me.jacklin213.mcrp.commands.PluginCommandExcecutor;
 import me.jacklin213.mcrp.managers.CommandManager;
 import me.jacklin213.mcrp.managers.DiseaseManager;
 import me.jacklin213.mcrp.managers.SkillManager;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class mcRP extends JavaPlugin {
 	
 	public Logger log;
-	public final HashMap<String, Integer> hm = new HashMap<String, Integer>();
+	public ArrayList<String> diseasePlayerList = new ArrayList<String>();
 	public SkillManager SM = new SkillManager(this);
 	private DiseaseManager diseaseManager = new DiseaseManager(this);
 	private CommandManager commandManager = new CommandManager(this);
 	private Updater updater;
-	private PluginCommandExcecutor commandExecutor = new PluginCommandExcecutor(this);
+	//private PluginCommandExcecutor commandExecutor = new PluginCommandExcecutor(this); DEPRECATED
 
 	public static String getChatName() {
 		return ChatColor.GOLD + "[" + ChatColor.YELLOW + "mcRP" + ChatColor.GOLD + "] " + ChatColor.RESET;
@@ -32,6 +30,13 @@ public class mcRP extends JavaPlugin {
 
 	public void onEnable() {
 		this.setLogger();
+		// Only have this code for v1.3
+		File file = new File(getDataFolder(), "config.yml");
+		if (file.exists()) {
+			file.delete();
+			log.info("Old configuration file deleted, Remember to reconfigure the new configuration before running mcRP");
+		}
+		// REMEMBER TO REMOVE ^
 		createConfig();
 
 		this.diseaseManager.giveDisease();
@@ -40,8 +45,9 @@ public class mcRP extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new mcRPListener(this), this);
 
 		getCommand("mcrp").setExecutor(commandManager);
-		getCommand("skills").setExecutor(commandExecutor);
-	    getCommand("binds").setExecutor(commandExecutor);
+		getCommand("skills").setExecutor(commandManager);
+		getCommand("skillinfo").setExecutor(commandManager);
+	    getCommand("binds").setExecutor(commandManager);
 	    
 	    Boolean updateCheck = Boolean.valueOf(getConfig().getBoolean("UpdateCheck"));
 		Boolean autoUpdate = Boolean.valueOf(getConfig().getBoolean("AutoUpdate"));

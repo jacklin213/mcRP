@@ -1,5 +1,6 @@
 package me.jacklin213.mcrp.managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.jacklin213.mcrp.mcRP;
@@ -56,6 +57,29 @@ public class SkillManager {
 	
 	public HashMap<String, Skill> getSkills() {
 		return this.skills;
+	}
+	
+	public String getSkillNames() {
+		StringBuilder names = new StringBuilder();
+		int i = 0;
+		for (String name : skills.keySet()) {
+			names.append(name);
+			if (i != skills.keySet().size() -1) {
+				names.append(", ");
+			} else {
+				names.append(".");
+			}
+			i++;
+		}
+		return names.toString();
+	}
+	
+	public ArrayList<String> getSkillNamesList() {
+		ArrayList<String> names= new ArrayList<String>();
+		for (String name : skills.keySet()) {
+			names.add(name);
+		}
+		return names;
 	}
 	
 	public void scheduleCooldown(final Player player, int cooldown, final String skillName) {

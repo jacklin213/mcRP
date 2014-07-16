@@ -14,8 +14,9 @@ public class CmdSkillInfo extends SubCommand {
 	private static final String PERMISSIONNODE = "none";
 	private static final String[] HELP = { 
 		GOLD + "Use: " + AQUA + "/mcrp skillinfo <skillname>" + YELLOW + " to see description of specific skill", 
-		// Find time to change these to automatic V
-		GOLD + "Skills:" + YELLOW + "Bless, Confuse, Gills, MartyBoom, Might, SuperJump, SuperPunch, SuperSpeed."
+		GOLD + "Alias: " + AQUA + "/skillinfo <skillname>",
+		// Find time to change these to automatic V UPDATE: Not possible as it is decleared before runtime
+		GOLD + "Skills: " + YELLOW + "Bless, Confuse, Gills, MartyBoom, Might, SuperJump, SuperPunch, SuperSpeed."
 	};
 
 	public CmdSkillInfo(mcRP instance) {
@@ -55,16 +56,15 @@ public class CmdSkillInfo extends SubCommand {
 	}
 	
 	private void skillInfo(CommandSender sender, Skill skill) {
-		sender.sendMessage(GOLD + "====[" + YELLOW + skill.getName() + GOLD + "]====" );
+		sender.sendMessage(GOLD + "========[" + YELLOW + skill.getName() + GOLD + "]========" );
 		sender.sendMessage(GOLD + "Description: " + AQUA + skill.getDescription());
 		sender.sendMessage(GOLD + "Usage: " + YELLOW + skill.getUsage());
-		sender.sendMessage(GOLD + "SkillType: " + AQUA + 
-				(skill.getSkillType() == SkillType.BOTH ? skill.getSkillType().toString(): "PASSIVE, ACTIVE"));
+		sender.sendMessage(GOLD + "SkillType: " + AQUA + skill.getSkillType().toString());
 		if (skill.hasCooldown()) {
 			sender.sendMessage(GOLD + "Cooldown: " + GREEN + skill.getCooldown());
 		}
 		if (skill.getSkillType() == SkillType.PASSIVE || skill.getSkillType() == SkillType.BOTH) {
-			sender.sendMessage(GOLD + "Duration: " + GREEN + skill.getDuration() * 20);
+			sender.sendMessage(GOLD + "Duration: " + GREEN + skill.getDuration() / 20);
 		}
 	}
 
