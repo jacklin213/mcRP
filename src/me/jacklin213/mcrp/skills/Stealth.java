@@ -8,16 +8,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+
 @SkillInfo(
-		name = "Gills",
-		description = "Gills allows you to breath under water for a while",
-		usage = "Use /skills gills or right-click whilst holding a pumpkin",
+		name = "Stealth",
+		description = "Grants player stealth for a configurable amount of time",
+		usage = "Use /skills stealth",
 		skilltype = SkillType.PASSIVE
 )
+public class Stealth extends Skill{
 
-public class Gills extends Skill{
-
-	public Gills(mcRP instance) {
+	public Stealth(mcRP instance) {
 		super(instance);
 		// TODO Auto-generated constructor stub
 	}
@@ -29,8 +29,7 @@ public class Gills extends Skill{
 		} else {
 			plugin.SM.scheduleCooldown(player, this.getCooldown(player), this.getName()); 
 			player.sendMessage(mcRP.getChatName() + YELLOW + "You have activated your " + GREEN  + this.getName() + YELLOW + " ability");
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, this.getDuration(), 1));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, this.getDuration(), 1));
 		}
 	}
-
 }

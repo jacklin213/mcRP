@@ -28,7 +28,7 @@ public class Might extends Skill{
 			player.sendMessage(mcRP.getChatName() + RED + "You still have a " + GOLD + plugin.SM.getSecondsLeft(player, this.getCooldown(player), this.getName()) + RED + " second cooldown");
 		} else {
 			plugin.SM.scheduleCooldown(player, this.getCooldown(player), this.getName()); 
-			player.sendMessage(mcRP.getChatName() + YELLOW + "You have activated your " + GREEN  + "Might" + YELLOW + " ability");
+			player.sendMessage(mcRP.getChatName() + YELLOW + "You have activated your " + GREEN  + this.getName() + YELLOW + " ability");
 			player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, this.getDuration(), 1));
 		}
 	}

@@ -10,6 +10,7 @@ import me.jacklin213.mcrp.skills.Gills;
 import me.jacklin213.mcrp.skills.MartyBoom;
 import me.jacklin213.mcrp.skills.Might;
 import me.jacklin213.mcrp.skills.Skill;
+import me.jacklin213.mcrp.skills.Stealth;
 import me.jacklin213.mcrp.skills.SuperJump;
 import me.jacklin213.mcrp.skills.SuperPunch;
 import me.jacklin213.mcrp.skills.SuperSpeed;
@@ -37,6 +38,7 @@ public class SkillManager {
 		skills.put("gills", new Gills(plugin));
 		skills.put("martyboom", new MartyBoom(plugin));
 		skills.put("might", new Might(plugin));
+		skills.put("stealth", new Stealth(plugin));
 		skills.put("superjump", new SuperJump(plugin));
 		skills.put("superpunch", new SuperPunch(plugin));
 		skills.put("superspeed", new SuperSpeed(plugin));
