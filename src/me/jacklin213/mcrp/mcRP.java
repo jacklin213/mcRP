@@ -1,16 +1,19 @@
 package me.jacklin213.mcrp;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
-import me.jacklin213.mcrp.Updater.UpdateResult;
-import me.jacklin213.mcrp.Updater.UpdateType;
 import me.jacklin213.mcrp.managers.CommandManager;
 import me.jacklin213.mcrp.managers.DiseaseManager;
 import me.jacklin213.mcrp.managers.SkillManager;
+import me.jacklin213.mcrp.utils.MetricsLite;
+import me.jacklin213.mcrp.utils.Updater;
+import me.jacklin213.mcrp.utils.Updater.UpdateResult;
+import me.jacklin213.mcrp.utils.Updater.UpdateType;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,10 +51,12 @@ public class mcRP extends JavaPlugin {
 		getCommand("skillinfo").setExecutor(commandManager);
 	    getCommand("binds").setExecutor(commandManager);
 	    
+	    Boolean useMetrics = Boolean.valueOf(getConfig().getBoolean("Metrics"));
 	    Boolean updateCheck = Boolean.valueOf(getConfig().getBoolean("UpdateCheck"));
 		Boolean autoUpdate = Boolean.valueOf(getConfig().getBoolean("AutoUpdate"));
 		this.updateCheck(updateCheck, autoUpdate, 43503);
 		this.updateCheckConfig();
+		this.startMetrics(useMetrics);
 		
 	    log.info(String.format("Version %s By The mcRP Team is now enabled!.", getDescription().getVersion()));
 	}
@@ -116,6 +121,21 @@ public class mcRP extends JavaPlugin {
 			}
 		}
 		// REMEMBER TO REMOVE ^
+	}
+	
+	private void startMetrics(boolean useMetrics) {
+		if (!useMetrics) {
+			return;
+		}
+		try {
+			//Metrics metrics = new Metrics(this);
+		    MetricsLite metrics = new MetricsLite(this);
+		    metrics.start();
+		} catch (IOException e) {
+			log.severe("Unable to start Metrics. Printing error bellow");
+			e.printStackTrace();
+		    // Failed to submit the stats :-(
+		}
 	}
 	
 	private void updateCheck(boolean updateCheck, boolean autoUpdate, int ID){
