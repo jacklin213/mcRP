@@ -1,5 +1,7 @@
 package me.jacklin213.mcrp;
 
+import me.jacklin213.mcrp.managers.CharacterManager;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -42,6 +44,8 @@ public class mcRPListener implements Listener {
 		if (this.plugin.getConfig().getBoolean("Motd.Enabled")){
 			event.setJoinMessage(mcRP.getChatName() + this.plugin.getConfig().getString("Motd.Message"));
 		}
+		// Loads Character info from database
+		CharacterManager.loadCharacter(event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

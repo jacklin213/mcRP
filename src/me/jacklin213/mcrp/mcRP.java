@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import me.jacklin213.mcrp.database.DBLink;
 import me.jacklin213.mcrp.managers.CommandManager;
 import me.jacklin213.mcrp.managers.DiseaseManager;
+import me.jacklin213.mcrp.managers.RPClassManager;
 import me.jacklin213.mcrp.managers.SkillManager;
 import me.jacklin213.mcrp.utils.MetricsLite;
 import me.jacklin213.mcrp.utils.Updater;
@@ -22,19 +24,35 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class mcRP extends JavaPlugin {
 	
+	private static mcRP plugin;
+	
 	public Logger log;
 	public ArrayList<String> diseasePlayerList = new ArrayList<String>();
 	public SkillManager SM = new SkillManager(this);
+	public RPClassManager RPCM = new RPClassManager();
 	private DiseaseManager diseaseManager = new DiseaseManager(this);
 	private CommandManager commandManager = new CommandManager(this);
+	private DBLink dbLink;
 	private Updater updater;
 	private File backupFolder;
 	private boolean enabled = false;
 	private boolean debug = false;
 	//private PluginCommandExcecutor commandExecutor = new PluginCommandExcecutor(this); DEPRECATED
 
+	/**
+	 * Gets an instance of the mcRP class.
+	 * @return mcRP instance
+	 */
+	public static mcRP getPluginInstance() {
+		return plugin;
+	}
+	
 	public static String getChatName() {
 		return ChatColor.GOLD + "[" + ChatColor.YELLOW + "mcRP" + ChatColor.GOLD + "] " + ChatColor.RESET;
+	}
+	
+	public DBLink getDBLink() {
+		return this.dbLink;
 	}
 
 	public void onEnable() {
@@ -176,6 +194,17 @@ public class mcRP extends JavaPlugin {
 		//file.delete();
 		log.info("Old configuration file moved to backups folder");
 		log.info("Remember to reconfigure the new configuration before running mcRP");
+	}
+	
+	private void loadDatabase() {
+		dbLink = new DBLink(
+				getConfig().getString("Storage.Info.Host"), 
+				getConfig().getInt("Storage.Info.Port"), 
+				getConfig().getString("Storage.Info.Db"),
+				getConfig().getString("Storage.Info.User"), 
+				getConfig().getString("Storage.Info.Pass")
+		);
+		dbLink.load();
 	}
 	
 	private void startMetrics(boolean useMetrics) {

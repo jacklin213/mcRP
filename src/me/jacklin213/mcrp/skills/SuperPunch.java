@@ -1,12 +1,11 @@
 package me.jacklin213.mcrp.skills;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 import me.jacklin213.mcrp.mcRP;
 import me.jacklin213.mcrp.skills.Skill.SkillInfo;
 import me.jacklin213.mcrp.skills.Skill.SkillType;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 @SkillInfo(
 		name = "SuperPunch",
