@@ -7,6 +7,8 @@ main: me.jacklin213.mcrp.mcRP
 commands:
   mcrp:
     description: Main command
+  class:
+    description: Main class command
   binds:
     description: View skills that are item bound
   skills:
@@ -35,7 +37,10 @@ permissions:
     description: Bypass all diseases
     children: 
       mcrp.diseases.dehydration.exempt: true
-      
+  
+  mcrp.class.choose:
+    description: Allows player to choose a class
+    default: true    
   mcrp.diseases.dehydration.exempt: 
     description: Player is exempt from dehydration
     default: false

@@ -26,7 +26,7 @@ import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SubCommand {
+public abstract class SubCommand {
 
 	public final mcRP plugin;
 	public static final String CHAT_NAME = mcRP.getChatName();
@@ -39,8 +39,10 @@ public class SubCommand {
     public static final ChatColor AQUA = ChatColor.AQUA;
     public static final Server SERVER = Bukkit.getServer();
     public static final String NO_PERMS = RED + "Insufficient Permissions.";
+    public static final String NO_RPCLASS = RED + "Class doesn't exist. To see a list of avalible classes do /classes list";
     public static final String PLAYER_ONLY = RED + "This command can only be used by players.";
-
+    public static final String NULL_CHARACTER = RED + "Error loading character. Please contact your server owner!";
+    
     private final String name;
     private final String command;
     private final String usage;
@@ -64,9 +66,7 @@ public class SubCommand {
         }
     }
 
-    protected void execute(CommandSender sender, String[] args) {
-        return; // Stub
-    }
+    abstract protected void execute(CommandSender sender, String[] args);
 
     public void sendHelp(CommandSender cs) {
         cs.sendMessage(GOLD + "========[" + YELLOW + getName() + GOLD + "]========");

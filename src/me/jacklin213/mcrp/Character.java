@@ -29,6 +29,14 @@ public class Character {
 		this.defaultBind = defaultBind;
 	}
 	
+	public void setRPClass(String className) {
+		RPClass rpClass = mcRP.getPluginInstance().RPCM.getRPClass(className);
+		if (rpClass != null) {
+			this.rpClass = className;
+			this.classType = rpClass.getClassType();
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}

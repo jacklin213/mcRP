@@ -13,6 +13,7 @@ public class DBLink {
 	private String db;
 	private String user;
 	private String pass;
+	private String table;
 	
 	public DBLink(String host, int port, String db, String user, String pass) {
 		this.host = host;
@@ -20,6 +21,7 @@ public class DBLink {
 		this.db = db;
 		this.user = user;
 		this.pass = pass;
+		this.table = plugin.getConfig().getString("Storage.Info.TablePrefix") + "players";
 	}
 	
 	public void load() {
@@ -28,8 +30,8 @@ public class DBLink {
 			((MySQL) sql).open();
 			plugin.log.info("Database connection established.");
 
-			if (!sql.tableExists(plugin.getConfig().getString("Storage.Info.TablePrefix" + "players"))) {
-				plugin.log.info("Creating Storage.Info.TablePrefix" + "players");
+			if (!sql.tableExists(table)) {
+				plugin.log.info("Creating table: " + table + " ......");
 				String query = "CREATE TABLE `" + "Storage.Info.TablePrefix" + "players" + "` ("
 						+ "`id` int(32) NOT NULL AUTO_INCREMENT,"
 						+ "`player` varchar(255),"
@@ -38,21 +40,27 @@ public class DBLink {
 						+ "'defaultbind' varchar(255)"
 						+ " PRIMARY KEY (id));";
 				sql.modifyQuery(query);
+				plugin.log.info(table + " has been created.");
+				return;
 			}
+			plugin.log.info(table + " has been loaded.");
 		} else {
-			sql = new SQLite(plugin.log, "Establishing SQLite Connection.", "mcrp.db", plugin.getDataFolder().getAbsolutePath());
+			sql = new SQLite(plugin.log, "Establishing SQLite Connection......", "mcrp.db", plugin.getDataFolder().getAbsolutePath());
 			((SQLite) sql).open();
 
-			if (!sql.tableExists("Storage.Info.TablePrefix" + "players")) {
-				plugin.log.info("Creating Storage.Info.TablePrefix" + "players");
-				String query = "CREATE TABLE `" + "Storage.Info.TablePrefix" + "players" + "` ("
+			if (!sql.tableExists(table)) {
+				plugin.log.info("Creating table: " + table + " ......");
+				String query = "CREATE TABLE `" + table + "` ("
 						+ "`id` INTEGER PRIMARY KEY,"
 						+ "`player` TEXT(255),"
 						+ "`uuid` TEXT(255),"
 						+ "`job` TEXT(255),"
-						+ "'defaultbind' TEXT(255);";
+						+ "'defaultbind' TEXT(255));";
 				sql.modifyQuery(query);
+				plugin.log.info(table + " has been created.");
+				return;
 			}
+			plugin.log.info(table + " has been loaded.");
 		}
 	}
 

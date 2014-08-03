@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import me.jacklin213.mcrp.database.DBLink;
+import me.jacklin213.mcrp.managers.CharacterManager;
 import me.jacklin213.mcrp.managers.CommandManager;
 import me.jacklin213.mcrp.managers.DiseaseManager;
 import me.jacklin213.mcrp.managers.RPClassManager;
@@ -28,10 +29,12 @@ public class mcRP extends JavaPlugin {
 	
 	public Logger log;
 	public ArrayList<String> diseasePlayerList = new ArrayList<String>();
+	
+	public CommandManager commandManager = new CommandManager(this);
 	public SkillManager SM = new SkillManager(this);
 	public RPClassManager RPCM = new RPClassManager();
 	private DiseaseManager diseaseManager = new DiseaseManager(this);
-	private CommandManager commandManager = new CommandManager(this);
+	
 	private DBLink dbLink;
 	private Updater updater;
 	private File backupFolder;
@@ -59,9 +62,10 @@ public class mcRP extends JavaPlugin {
 		enabled = true;
 		this.setLogger();
 		this.setBackupFolder();
+		plugin = this;
 		
 		createConfig();
-		
+
 		debug = getConfig().getBoolean("Debug");
 		Boolean useMetrics = Boolean.valueOf(getConfig().getBoolean("Metrics"));
 	    Boolean updateCheck = Boolean.valueOf(getConfig().getBoolean("UpdateCheck"));
@@ -88,6 +92,8 @@ public class mcRP extends JavaPlugin {
 	}
 
 	public void onDisable() {
+		CharacterManager.saveCharacterAll();
+		dbLink.getSql().close();
 		log.info(String.format("Disabled Version %s", getDescription().getVersion()));
 	}
 	
