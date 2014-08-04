@@ -11,6 +11,7 @@ mcMMO and similar plugins are "monolithic". This makes them hard to use with oth
 + [escortkeel](http://dev.bukkit.org/profiles/escortkeel/): Former Developer
 
 If you would like to join the team follow the steps bellow:
+
 1. Make a fork of the mcRP repo
 2. Make changes to the code
 3. Update the .classpath file to suit your IDE
@@ -20,15 +21,13 @@ If you would like to join the team follow the steps bellow:
 
 ## Donations ##
 If you like this plugin and if you feel like giving something back to me, you can donate to me. Development cost time and time is the money of the life. Please feel free to donate.
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="VHZDAUU8BNA6E">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+<a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=VHZDAUU8BNA6E&item_name=mcRP+%28from+Bukkit.org%29&cmd=_s-xclick">
+  <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif alt="Donation Icon" width="147" heigh="47"/>
+</a>
 
 ## BETA Builds ##
-BETA builds have been tested to run on your server but their full functionality has not been tested. If you find a problem with a BETA build please report using either
+BETA builds have been tested to run on your server but their full functionality has not been tested. If you find a problem with a BETA build please report using either:
+
 1. Issue Tracker on GitHub
 2. [Send a Ticket on BukkitDev](http://dev.bukkit.org/bukkit-plugins/mcrp/create-ticket/)
 
@@ -38,6 +37,7 @@ Copyright (c) 2012-2014, Jacklin213
 http://dev.bukkit.org/licenses/2049-lin-craft-license/
 
 Jacklin213, Lincraft and LinProductions have all rights to this plugin/content.  
+
 1. NO MODIFING or COPYING without Authors permissions.
 2. De compiling is only acceptable for Learning purposes
 
