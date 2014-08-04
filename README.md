@@ -21,8 +21,9 @@ If you would like to join the team follow the steps bellow:
 
 ## Donations ##
 If you like this plugin and if you feel like giving something back to me, you can donate to me. Development cost time and time is the money of the life. Please feel free to donate.
+
 <a href="https://www.paypal.com/cgi-bin/webscr?hosted_button_id=VHZDAUU8BNA6E&item_name=mcRP+%28from+Bukkit.org%29&cmd=_s-xclick">
-  <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif alt="Donation Icon" width="147" heigh="47"/>
+  <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="Donation Icon" width="147" heigh="47"/>
 </a>
 
 ## BETA Builds ##
