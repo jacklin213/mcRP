@@ -19,6 +19,7 @@ public class CharacterManager {
 	
 	private static Database sql = plugin.getDBLink().getSql();
 	private static String table = plugin.getConfig().getString("Storage.Info.TablePrefix") + "players";
+	
 	/**
 	 * Stores character instances by UUID string, and Character class
 	 */
@@ -27,8 +28,7 @@ public class CharacterManager {
 	public static void createCharacter(Player player, RPClass rpClass, String defaultBind) {
 		String uuid = player.getUniqueId().toString();
 		characters.put(uuid, new Character(player.getName(), uuid, rpClass, plugin.SM.getSkill(defaultBind)));
-		sql.modifyQuery("INSERT INTO " + table + " (player, uuid, job) " +
-				"VALUES ('" + player.getUniqueId().toString() + "', '" + player.getName() + "', '" + rpClass.getName() + "')");
+		sql.modifyQuery("INSERT INTO " + table + " (player, uuid, job) " + "VALUES ('" + player.getUniqueId().toString() + "', '" + player.getName() + "', '" + rpClass.getName() + "')");
 		plugin.log.info("Created new Character for " + player.getName());
 	}
 	

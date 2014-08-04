@@ -86,6 +86,7 @@ public class mcRP extends JavaPlugin {
 		    getCommand("binds").setExecutor(commandManager);
 		    
 			this.startMetrics(useMetrics);
+			this.loadDatabase();
 			
 			log.info(String.format("Version %s By The mcRP Team is now enabled!.", getDescription().getVersion()));
 		}

@@ -90,4 +90,24 @@ Skills:
   SuperSpeed:
     Cooldown: 60
     Durruation: 10
+##################################################
+# +--------------------------------------------+ #
+# |                  Database                  | #
+# +--------------------------------------------+ #
+##################################################
+# All database information is stored bellow
+# Storage options avalible are 'sqlite' and 'mysql' 
+# NOTE: these are case insensitive
+# By default Storage type is 'sqlite' so you dont have to edit the Info
+# Info is only if Storage type is 'mysql'
+# If you are using a server host, they should provide this info for you
+Storage:
+  Type: sqlite
+  Info:
+    Host: localhost
+    Port: 3306
+    Db: ''
+    User: ''
+    Pass: ''
+    TablePrefix: 'mcrp_'
 #======================[End]=====================#

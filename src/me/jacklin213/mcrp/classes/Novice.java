@@ -4,7 +4,6 @@ public class Novice extends RPClass {
 	
 	public Novice() {
 		super("Novice", ClassType.NOVICE);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
