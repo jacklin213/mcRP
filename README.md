@@ -34,7 +34,7 @@ BETA builds have been tested to run on your server but their full functionality 
 
 ## Licences ##
 ### LinCraft(?) license ###
-Copyright (c) 2012-2014, Jacklin213
+Copyright (c) 2012-2014, Jacklin213  
 http://dev.bukkit.org/licenses/2049-lin-craft-license/
 
 Jacklin213, Lincraft and LinProductions have all rights to this plugin/content.  
@@ -43,14 +43,15 @@ Jacklin213, Lincraft and LinProductions have all rights to this plugin/content.
 2. De compiling is only acceptable for Learning purposes
 
 Note: LinCraft(?) license for youtube
+
 1. Any content published is not to be copied or downloaded without authors permission
 
 Any distribution must have recieved permission and must credit LinCraft and jacklin213 or authors.
 If you want to get permission for using plugin/content, feel free to message jacklin213 or email: jacklin213@gmail.com
 
-Jacklin213 copyright 2011 - 2014
-LinProduction copyright 2011 - 2014
-LinCraft(?) license copyright 2011 - 2014
+Jacklin213 copyright 2011 - 2014  
+LinProduction copyright 2011 - 2014  
+LinCraft(?) license copyright 2011 - 2014  
 ### All rights reserved ###
 Copyright (c) 2012-2014, The mcRP Team
 
