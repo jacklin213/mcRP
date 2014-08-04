@@ -29,6 +29,8 @@ public class mcRP extends JavaPlugin {
 	private CommandManager commandManager = new CommandManager(this);
 	private Updater updater;
 	private File backupFolder;
+	private boolean enabled = false;
+	private boolean debug = false;
 	//private PluginCommandExcecutor commandExecutor = new PluginCommandExcecutor(this); DEPRECATED
 
 	public static String getChatName() {
@@ -36,29 +38,35 @@ public class mcRP extends JavaPlugin {
 	}
 
 	public void onEnable() {
+		enabled = true;
 		this.setLogger();
 		this.setBackupFolder();
 		
 		createConfig();
-
-		this.diseaseManager.giveDisease();
-		this.diseaseManager.diseaseChecks();
-
-		getServer().getPluginManager().registerEvents(new mcRPListener(this), this);
-
-		getCommand("mcrp").setExecutor(commandManager);
-		getCommand("skills").setExecutor(commandManager);
-		getCommand("skillinfo").setExecutor(commandManager);
-	    getCommand("binds").setExecutor(commandManager);
-	    
-	    Boolean useMetrics = Boolean.valueOf(getConfig().getBoolean("Metrics"));
+		
+		debug = getConfig().getBoolean("Debug");
+		Boolean useMetrics = Boolean.valueOf(getConfig().getBoolean("Metrics"));
 	    Boolean updateCheck = Boolean.valueOf(getConfig().getBoolean("UpdateCheck"));
 		Boolean autoUpdate = Boolean.valueOf(getConfig().getBoolean("AutoUpdate"));
 		this.updateCheck(updateCheck, autoUpdate, 43503);
 		this.updateCheckConfig();
-		this.startMetrics(useMetrics);
-		
-	    log.info(String.format("Version %s By The mcRP Team is now enabled!.", getDescription().getVersion()));
+
+		// Checks to see if anything has disabled plugin before tyring to enable it
+		if (enabled) {
+			this.diseaseManager.giveDisease();
+			this.diseaseManager.diseaseChecks();
+
+			getServer().getPluginManager().registerEvents(new mcRPListener(this), this);
+
+			getCommand("mcrp").setExecutor(commandManager);
+			getCommand("skills").setExecutor(commandManager);
+			getCommand("skillinfo").setExecutor(commandManager);
+		    getCommand("binds").setExecutor(commandManager);
+		    
+			this.startMetrics(useMetrics);
+			
+			log.info(String.format("Version %s By The mcRP Team is now enabled!.", getDescription().getVersion()));
+		}
 	}
 
 	public void onDisable() {
@@ -97,30 +105,77 @@ public class mcRP extends JavaPlugin {
 			YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 			if (config != null) {
 				if (config.contains("Version")) {
+					//Regex '.' to ' ' and remove all ' '
 					int configVersion = Integer.parseInt(config.getString("Version").replace('.', ' ').replaceAll("\\s",""));
-					int pluginVersion = Integer.parseInt(getDescription().getVersion().replace('.', ' ').replaceAll("\\s",""));
+					//Gets version number only eg) "1.3.1" then regex '.' to ' ' and remove all ' '
+					//Substring is (0, 5) because 5 - 0 = 5 characters, refer to javadoc
+					int pluginVersion = Integer.parseInt(getDescription().getVersion().substring(0, 5).replace('.', ' ').replaceAll("\\s",""));
+					//Send debug messages
+					if (debug) {
+						log.info("[Debug][ConfigCheck] Version: " + getDescription().getVersion());
+						log.info("[Debug][ConfigCheck] Plugin version: " + pluginVersion);
+						log.info("[Debug][ConfigCheck] Config version: " + configVersion);
+					}
 					if (configVersion < pluginVersion) {
-						String date = new SimpleDateFormat("HH-mm-ss_dd-MM-yyyy").format(new Date());
-						file.renameTo(new File(backupFolder + File.separator +"OLD_Config_" + date + ".yml"));
-						createConfig();
-						//file.delete();
-						log.info("Old configuration file moved to backups folder");
-						log.info("Remember to reconfigure the new configuration before running mcRP");
+						backupConfig(file);
 					}
 					if (configVersion > pluginVersion) {
-						log.severe("Error: Config version is higher than plugin version");
+						log.severe("Config version is higher than plugin version");
 						log.severe("Please delete your config and let it regenerate to prevent errors");
+						disablePlugin();
 					}
 					if (configVersion == pluginVersion) {
-						log.info("Config file up to date!, Configuration loaded");
+						//log.info("Config file up to date!, Configuration loaded");
+						if (config.contains("Beta")) {
+							if (config.getInt("Beta") != -1) {
+								int configVersionBeta = config.getInt("Beta");
+								if (!getDescription().getVersion().contains("BETA")) {
+									log.severe("Config version has BETA but plugin doesnt");
+									log.severe("Please delete your config and let it regenerate to prevent errors");
+									disablePlugin();
+									return;
+								}
+								int pluginVersionBeta = Integer.parseInt(getDescription().getVersion().substring(11));
+								if (configVersionBeta < pluginVersionBeta) {
+									backupConfig(file);
+								}
+								if (configVersion > pluginVersion) {
+									log.severe("Config BETA is higher than plugin BETA");
+									log.severe("Please delete your config and let it regenerate to prevent errors");
+									disablePlugin();
+								}
+								if (configVersionBeta == pluginVersionBeta) {
+									log.info("Config file up to date!, BETA configuration loaded");
+								}
+							}
+						} else {
+							log.severe("Unable to find path: Beta in config.yml");
+							log.severe("Delete your config.yml if you cannot find 'Beta'");
+							disablePlugin();
+						}
 					}
 				} else {
-					log.warning("Unable to find path: Version in config.yml");
-					log.warning("Delete your config.yml if you cannot find 'Version'");
+					log.severe("Unable to find path: Version in config.yml");
+					log.severe("Delete your config.yml if you cannot find 'Version'");
+					disablePlugin();
 				}
 			}
 		}
 		// REMEMBER TO REMOVE ^
+	}
+	
+	private void disablePlugin() {
+		getServer().getPluginManager().disablePlugin(this);
+		enabled = false;
+	}
+	
+	private void backupConfig(File file) {
+		String date = new SimpleDateFormat("HH-mm-ss_dd-MM-yyyy").format(new Date());
+		file.renameTo(new File(backupFolder + File.separator +"OLD_Config_" + date + ".yml"));
+		createConfig();
+		//file.delete();
+		log.info("Old configuration file moved to backups folder");
+		log.info("Remember to reconfigure the new configuration before running mcRP");
 	}
 	
 	private void startMetrics(boolean useMetrics) {
