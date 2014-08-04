@@ -51,6 +51,12 @@ permissions:
   mcrp.setmotd:
     description: Set message of the day
     default: op
+  mcrp.skills.use:
+    description: Allows the use of the skills command
+    default: true
+  mcrp.skills.info:
+    description: Allows the use of the skillsinfo command
+    default: true
   mcrp.skills.nocooldown:
     description: Allows player to have no cooldown for skills
     default: op

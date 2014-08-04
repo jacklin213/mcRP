@@ -10,7 +10,7 @@ public class CmdSkills extends SubCommand {
 	private static final String NAME = "mcRP Skills";
 	private static final String COMMAND = "skills";
 	private static final String USAGE = "mcrp skills";
-	private static final String PERMISSIONNODE = "none";
+	private static final String PERMISSIONNODE = "mcrp.skills.use";
 	private static final String[] HELP = { 
 		GOLD + "Use: " + AQUA + "/mcrp skills <skillname>" + YELLOW + " to activate/use the skill that is requested", 
 		// Find time to change these to automatic V

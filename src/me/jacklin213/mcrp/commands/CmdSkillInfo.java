@@ -11,7 +11,7 @@ public class CmdSkillInfo extends SubCommand {
 	private static final String NAME = "mcRP SkillInfo";
 	private static final String COMMAND = "skillinfo";
 	private static final String USAGE = "mcrp skillinfo";
-	private static final String PERMISSIONNODE = "none";
+	private static final String PERMISSIONNODE = "mcrp.skills.info";
 	private static final String[] HELP = { 
 		GOLD + "Use: " + AQUA + "/mcrp skillinfo <skillname>" + YELLOW + " to see description of specific skill", 
 		GOLD + "Alias: " + AQUA + "/skillinfo <skillname>",
