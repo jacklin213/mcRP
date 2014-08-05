@@ -32,29 +32,33 @@ public class SkillManager {
 	}
 
 	private void addSkills() {
-		//Note: These skill names have to be in lower case
-		skills.put("bless", new Bless(plugin));
-		skills.put("confuse", new Confuse(plugin));
-		skills.put("gills", new Gills(plugin));
-		skills.put("martyboom", new MartyBoom(plugin));
-		skills.put("might", new Might(plugin));
-		skills.put("stealth", new Stealth(plugin));
-		skills.put("superjump", new SuperJump(plugin));
-		skills.put("superpunch", new SuperPunch(plugin));
-		skills.put("superspeed", new SuperSpeed(plugin));
+		//Note: These skill names have to be in lower case.
+		//As of v1.3.1 BETA 3 the above can be ignored
+		this.registerSkills(new Bless(plugin));
+		this.registerSkills(new Confuse(plugin));
+		this.registerSkills(new Gills(plugin));
+		this.registerSkills(new MartyBoom(plugin));
+		this.registerSkills(new Might(plugin));
+		this.registerSkills(new Stealth(plugin));
+		this.registerSkills(new SuperJump(plugin));
+		this.registerSkills(new SuperPunch(plugin));
+		this.registerSkills(new SuperSpeed(plugin));
 	}
 	
 	public Skill getSkill(String skillName) {
-		if (skills.containsKey(skillName)) {
-			return skills.get(skillName);
+		for (String name : skills.keySet()) {
+			if (name.equalsIgnoreCase(skillName)) {
+				return skills.get(name);
+			}
 		}
 		return null;
 	}
 	
-	public void executeSkill(Player player, String skillName, String args[]) {
-		if (skills.containsKey(skillName)) {
-			skills.get(skillName).exceute(player, args);
-		}
+	public boolean executeSkill(Player player, String skillName, String args[]){
+		Skill skill = getSkill(skillName);
+		if (skill == null) return false;
+		skill.exceute(player, args);
+		return true;
 	}
 	
 	public HashMap<String, Skill> getSkills() {
@@ -131,6 +135,10 @@ public class SkillManager {
 			return true;
 		}
 		return false;
+	}
+	
+	private void registerSkills(Skill skill) {
+		skills.put(skill.getName(), skill);
 	}
 	
 	// Old Skill management way

@@ -26,29 +26,9 @@ public class CmdSkillInfo extends SubCommand {
 	@Override
 	protected void execute(CommandSender sender, String[] args) {
 		if (args.length > 0) {
-			if (args[0].equalsIgnoreCase("bless")) {
-				skillInfo(sender, plugin.SM.getSkill("bless"));
-			}
-			if (args[0].equalsIgnoreCase("confuse")) {
-				skillInfo(sender, plugin.SM.getSkill("confuse"));
-			}
-			if (args[0].equalsIgnoreCase("gills")) {
-				skillInfo(sender, plugin.SM.getSkill("gills"));
-			}
-			if (args[0].equalsIgnoreCase("martyboom")) {
-				skillInfo(sender, plugin.SM.getSkill("martyboom"));
-			}
-			if (args[0].equalsIgnoreCase("might")) {
-				skillInfo(sender, plugin.SM.getSkill("might"));
-			}
-			if (args[0].equalsIgnoreCase("superjump")) {
-				skillInfo(sender, plugin.SM.getSkill("superjump"));
-			}
-			if (args[0].equalsIgnoreCase("superpunch")) {
-				skillInfo(sender, plugin.SM.getSkill("superpunch"));
-			}
-			if (args[0].equalsIgnoreCase("superspeed")) {
-				skillInfo(sender, plugin.SM.getSkill("superspeed"));
+			Skill skill = plugin.SM.getSkill(args[0]);
+			if (skill != null) {
+				skillInfo(sender, skill);
 			}
 		} else {
 			sendHelp(sender);

@@ -27,20 +27,14 @@ public class CmdSkills extends SubCommand {
 		if (args.length > 0) {
 			if (sender instanceof Player) {
     			Player p = (Player)sender;
-    			for (String skillName : plugin.SM.getSkills().keySet()) {
-    				if (args[0].equalsIgnoreCase(skillName)) {
-    					/*String[] newArgs = new String[args.length-1];
-    	                for (int i = 1; i < args.length; i++) {
-    	                    newArgs[i-1] = args[i];
-    	                }*/
-    					plugin.SM.executeSkill(p, args[0]/*AKA skillName*/, args);
-    				}
-    			}
+    			if (!plugin.SM.executeSkill(p, args[0]/*AKA skillName*/, args))
+    				p.sendMessage(CHAT_NAME + NULL_SKILL);
     		} else {
     			sender.sendMessage(CHAT_NAME + PLAYER_ONLY);
     		}
 		} else {
 			sendHelp(sender);
+			// Add automatic part here
 		}
 	}
 
