@@ -3,7 +3,7 @@ package me.jacklin213.mcrp.classes;
 public class Warrior extends RPClass{
 
 	public Warrior() {
-		super("Warrior", ClassType.WARRIOR);
+		super("Warrior", null, ClassType.WARRIOR);
 	}
 	
 	@Override

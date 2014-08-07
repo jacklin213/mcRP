@@ -14,16 +14,19 @@ public abstract class RPClass {
 	private HashMap<String, Skill> skills = new HashMap<String, Skill>();
 	
 	private String name;
+	private String[] aliases;
 	private ClassType classType;
 
 	//Forces subclasses to have a constructor
 	/**
 	 * Constructor for this class. Requires subclass name and class type.
 	 * @param name The name of the RPClass subclass
+	 * @param aliases An Array of Strings which will be recognised as aliases
 	 * @param classType The type of the RPClass subclass
 	 */
-	public RPClass(String name, ClassType classType) {
+	public RPClass(String name, String[] aliases, ClassType classType) {
 		this.name = name;
+		this.aliases = aliases;
 		this.classType = classType;
 	}
 	
@@ -55,6 +58,10 @@ public abstract class RPClass {
 
 	public String getName() {
 		return name;
+	}
+
+	public String[] getAliases() {
+		return aliases;
 	}
 
 	public ClassType getClassType() {
