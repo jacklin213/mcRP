@@ -42,8 +42,7 @@ public class ConfigManager {
 	    	plugin.saveDefaultConfig();
 	    	log.info("config.yml generated!");
 	    } else {
-	    	plugin.getConfig().options().copyDefaults(true);
-	    	plugin.saveConfig();
+	    	updateCheckConfig();
 	    }
 	}
 	
@@ -67,7 +66,8 @@ public class ConfigManager {
 						log.info("[Debug][ConfigCheck] Config version: " + configVersion);
 					}
 					if (configVersion < pluginVersion) {
-						backupConfig(file);
+						log.info("Config update detected, Updating now......");
+						updateConfig();
 					}
 					if (configVersion > pluginVersion) {
 						log.severe("Config version is higher than plugin version");
@@ -87,9 +87,8 @@ public class ConfigManager {
 								}
 								int pluginVersionBeta = Integer.parseInt(plugin.getDescription().getVersion().substring(11));
 								if (configVersionBeta < pluginVersionBeta) {
-									//backupConfig(file);
 									log.info("Config update detected, Updating now......");
-									this.updateConfig();
+									updateConfig();
 								}
 								if (configVersion > pluginVersion) {
 									log.severe("Config BETA is higher than plugin BETA");
@@ -114,6 +113,13 @@ public class ConfigManager {
 			}
 		}
 		// REMEMBER TO REMOVE ^
+	}
+	
+	private void updateConfig() {
+		backupConfig(new File(plugin.getDataFolder(), "config.yml"));
+		plugin.getConfig().options().copyDefaults(true);
+    	plugin.saveConfig();
+    	log.info("Config file has been updated to: " + plugin.getConfig().getString("Version") + (plugin.getConfig().getInt("Beta") != 0));
 	}
 	
 	/**
@@ -178,7 +184,7 @@ public class ConfigManager {
 	
 	// METHODS WORKS , JUST CANNOT COPY #COMMNETS#
 	// VERY IMPORTANT TO GET EMBEDDED CONFIG U NEED TO USE plugin.getConfig().getDefaults();
-	private void updateConfig() {
+	private void updateConfigTest() {
 		File configFile = new File(plugin.getDataFolder() + File.separator + "config.yml");
 		MemoryConfiguration embeddedConfig = new MemoryConfiguration(plugin.getConfig().getDefaults());
 		MemoryConfiguration mem = new MemoryConfiguration(embeddedConfig);

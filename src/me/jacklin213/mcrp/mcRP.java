@@ -18,7 +18,6 @@ import me.jacklin213.mcrp.utils.Updater.UpdateResult;
 import me.jacklin213.mcrp.utils.Updater.UpdateType;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -97,10 +96,6 @@ public class mcRP extends JavaPlugin {
 	
 	public SkillManager getSkillManager() { 
 		return this.SM; 
-	}
-	
-	public ClassLoader getPluginClassLoader() {
-		return this.getClassLoader();
 	}
 	
 	public DBLink getDBLink() {
