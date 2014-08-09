@@ -21,8 +21,10 @@ public class RPClassManager {
 	
 	private void registerRPClass(RPClass rpClass) {
 		this.classes.put(rpClass.getName(), rpClass);
-		for (String classAlias : rpClass.getAliases()) {
-			if (classAlias != null) this.classes.put(classAlias, rpClass);
+		if (rpClass.getAliases() != null) {
+			for (String classAlias : rpClass.getAliases()) {
+				this.classes.put(classAlias, rpClass);
+			}
 		}
 	}
 	
