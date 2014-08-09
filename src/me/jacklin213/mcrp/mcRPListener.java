@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -46,6 +47,11 @@ public class mcRPListener implements Listener {
 		}
 		// Loads Character info from database
 		CharacterManager.loadCharacter(event.getPlayer());
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onQuit(PlayerQuitEvent event) {
+		CharacterManager.saveCharacter(event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

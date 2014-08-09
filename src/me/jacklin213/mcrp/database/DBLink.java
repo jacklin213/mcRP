@@ -32,12 +32,12 @@ public class DBLink {
 
 			if (!sql.tableExists(table)) {
 				plugin.log.info("Creating table: " + table + " ......");
-				String query = "CREATE TABLE `" + "Storage.Info.TablePrefix" + "players" + "` ("
+				String query = "CREATE TABLE `" + table + "` ("
 						+ "`id` int(32) NOT NULL AUTO_INCREMENT,"
 						+ "`player` varchar(255),"
 						+ "`uuid` varchar(255),"
 						+ "`job` varchar(255),"
-						+ "'defaultbind' varchar(255)"
+						+ "`defaultbind` varchar(255),"
 						+ " PRIMARY KEY (id));";
 				sql.modifyQuery(query);
 				plugin.log.info(table + " has been created.");
@@ -55,7 +55,7 @@ public class DBLink {
 						+ "`player` TEXT(255),"
 						+ "`uuid` TEXT(255),"
 						+ "`job` TEXT(255),"
-						+ "'defaultbind' TEXT(255));";
+						+ "`defaultbind` TEXT(255));";
 				sql.modifyQuery(query);
 				plugin.log.info(table + " has been created.");
 				return;
