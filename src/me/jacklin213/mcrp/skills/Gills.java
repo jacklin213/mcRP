@@ -17,13 +17,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Gills extends Skill{
 
-	public Gills(mcRP instance) {
-		super(instance);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
-	public void exceute(Player player, String[] args) {
+	public void execute(Player player, String[] args) {
 		if (plugin.SM.isCoolingDown(player, this.getName())) {
 			player.sendMessage(mcRP.getChatName() + RED + "You still have a " + GOLD + plugin.SM.getSecondsLeft(player, this.getCooldown(player), this.getName()) + RED + " second cooldown");
 		} else {

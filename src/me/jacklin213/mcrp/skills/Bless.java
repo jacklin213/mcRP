@@ -18,13 +18,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Bless extends Skill{
 
-	public Bless(mcRP instance) {
-		super(instance);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
-	public void exceute(Player player, String args[]) {
+	public void execute(Player player, String args[]) {
 		if (args.length == 1) {
 			if (plugin.SM.isCoolingDown(player, this.getName())) {
 				player.sendMessage(mcRP.getChatName() + RED + " You still have a " + GOLD + plugin.SM.getSecondsLeft(player, this.getCooldown(player), this.getName()) + RED + " second cooldown");

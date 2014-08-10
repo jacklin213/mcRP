@@ -19,13 +19,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Confuse extends Skill{
 
-	public Confuse(mcRP instance) {
-		super(instance);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
-	public void exceute(Player player, String[] args) {
+	public void execute(Player player, String[] args) {
 		Player target = Bukkit.getPlayerExact(args[1]);
 		if (args.length == 1) {
 			player.sendMessage(mcRP.getChatName() + ChatColor.RED + " You NEED to define a player to use this skill");
