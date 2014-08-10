@@ -3,6 +3,7 @@ package me.jacklin213.mcrp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.jacklin213.mcrp.database.DBLink;
@@ -30,8 +31,8 @@ public class mcRP extends JavaPlugin {
 	
 	public ConfigManager configManager;
 	public CommandManager commandManager = new CommandManager(this);
-	public SkillManager SM = new SkillManager(this);
-	public RPClassManager RPCM = new RPClassManager();
+	public SkillManager SM;
+	public RPClassManager RPCM;
 	private DiseaseManager diseaseManager = new DiseaseManager(this);
 	
 	private DBLink dbLink;
@@ -71,11 +72,16 @@ public class mcRP extends JavaPlugin {
 
 		// Checks to see if anything has disabled plugin before tyring to enable it
 		if (enabled) {
+			// Registers Classes and skills. CLASSES MUST BE FIRST
+			RPCM = new RPClassManager();
+			SM = new SkillManager(this);
+			
 			this.diseaseManager.giveDisease();
 			this.diseaseManager.diseaseChecks();
 
 			getServer().getPluginManager().registerEvents(new mcRPListener(this), this);
 
+			getCommand("class").setExecutor(commandManager);
 			getCommand("mcrp").setExecutor(commandManager);
 			getCommand("skills").setExecutor(commandManager);
 			getCommand("skillinfo").setExecutor(commandManager);
@@ -84,6 +90,8 @@ public class mcRP extends JavaPlugin {
 			this.startMetrics(useMetrics);
 			this.loadDatabase();
 			
+			// Incase server was enabled by a reload
+			CharacterManager.reloadCharacters();
 			log.info(String.format("Version %s By The mcRP Team is now enabled!.", getDescription().getVersion()));
 		}
 	}
@@ -121,8 +129,9 @@ public class mcRP extends JavaPlugin {
 		}
 	}
 	
-	public void disablePlugin() {
+	public void disablePlugin(Level level, String reason) {
 		enabled = false;
+		log.log(level, reason);
 		getServer().getPluginManager().disablePlugin(this);
 	}
 	
