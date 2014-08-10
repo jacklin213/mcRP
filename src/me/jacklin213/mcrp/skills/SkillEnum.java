@@ -23,7 +23,7 @@ public enum SkillEnum {
 	// <--Class Skills -->
 	//Warrior
 	IRONWILL(SkillType.PASSIVE, ClassType.WARRIOR),
-	MOBMAGNET(SkillType.ACTIVE, ClassType.WARRIOR),
+	MONSTERMAGNET(SkillType.ACTIVE, ClassType.WARRIOR),
 	POWERSLASH(SkillType.ACTIVE, ClassType.WARRIOR),
 	//Bowman
 	EXPLOSIVEARROW(SkillType.ACTIVE, ClassType.BOWMAN),

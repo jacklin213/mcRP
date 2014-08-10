@@ -150,9 +150,5 @@ public class mcRPListener implements Listener {
 	
 	@EventHandler(ignoreCancelled = true)
 	public void onSkillExecute(SkillExecuteEvent event) {
-		Skill skill = event.getSkill();
-		if (event.getSkill().getEnum() == SkillEnum.MOBMAGNET) {
-			// Cancel the targeting when time is over le.setTarget(null);
-		}
 	}
 }

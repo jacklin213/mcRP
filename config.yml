@@ -105,11 +105,11 @@ Classes:
     IronWill:
       Cooldown: 60
       Durruation: 10
-    MobMagnet:
+    MonsterMagnet:
       Cooldown: 60
       Durruation: 10
       # The block radius at which all hostile mobs will be attracted to player when skill is used
-      Radius: 5
+      Radius: 10
 # Setting allow legacy to true allows the use of mcrp v1.3.1 skills
 # This setting comes into effect after players choose a class
 # This setting does not effect players which do not have a class
