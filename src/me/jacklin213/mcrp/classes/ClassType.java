@@ -6,7 +6,7 @@ package me.jacklin213.mcrp.classes;
  *
  */
 public enum ClassType {
-	BOWMAN, MAGICIAN, PIRATE, THEIF, WARRIOR, NOVICE;
+	BOWMAN, MAGICIAN, PIRATE, THEIF, WARRIOR, NOVICE, LEGACY;
 	
 	/**
 	 * Gets a matching ClassType with the defined string

@@ -6,8 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import me.jacklin213.mcrp.mcRP;
+import me.jacklin213.mcrp.events.SkillExecuteEvent;
 import me.jacklin213.mcrp.managers.SkillManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -16,25 +18,45 @@ public abstract class Skill {
 	public mcRP plugin;
 	public SkillManager SM;
 	
-	ChatColor AQUA = ChatColor.AQUA;
-	ChatColor BLACK = ChatColor.BLACK;
-	ChatColor BLUE = ChatColor.BLUE;
-	ChatColor RED = ChatColor.RED;
-	ChatColor GOLD = ChatColor.GOLD;
-	ChatColor GRAY = ChatColor.GRAY;
-	ChatColor GREEN = ChatColor.GREEN;
-	ChatColor YELLOW = ChatColor.YELLOW;
-	ChatColor WHITE = ChatColor.WHITE;
+	public ChatColor AQUA = ChatColor.AQUA;
+	public ChatColor BLACK = ChatColor.BLACK;
+	public ChatColor BLUE = ChatColor.BLUE;
+	public ChatColor RED = ChatColor.RED;
+	public ChatColor GOLD = ChatColor.GOLD;
+	public ChatColor GRAY = ChatColor.GRAY;
+	public ChatColor GREEN = ChatColor.GREEN;
+	public ChatColor YELLOW = ChatColor.YELLOW;
+	public ChatColor WHITE = ChatColor.WHITE;
 	
-	public Skill (mcRP instance) {
-		plugin = instance;
+	public Skill () {
+		plugin = mcRP.getPluginInstance();
 	}
 	
 	public void setSkillManager() {
 		SM = plugin.getSkillManager();
 	}
 
-	abstract public void exceute(Player player, String args[]);
+	/**
+	 * Runs a skill for the specified player. Calls a new {@link SkillExecuteEvent}
+	 * <p>
+	 * This method also runs the {@link #execute(Player, String[])} method which developers
+	 * use to tell what a skill does upon executing.
+	 * </p>
+	 * @param player The player to run the skill for
+	 * @param args The arguments from the command if needed
+	 */
+	public void run(Player player, String args[]) {
+		SkillExecuteEvent event = new SkillExecuteEvent(player, this);
+		Bukkit.getServer().getPluginManager().callEvent(event);
+		this.execute(player, args);
+	}
+	
+	/**
+	 * Abstract execute directed at developers to control what happens when a spell is cast.
+	 * @param player The player to execute the skill for
+	 * @param args The arguments from the command if needed
+	 */
+	abstract public void execute(Player player, String args[]);
 	
 	/**
      * Gets the name of this Skill
@@ -72,7 +94,7 @@ public abstract class Skill {
      *
      * @return the SkillType name
      */
-    public SkillType getSkillType() {
+    public SkillType getType() {
         SkillInfo info = this.getClass().getAnnotation(SkillInfo.class);
         // Ternary operator
         return info == null ? SkillType.OTHER : info.skilltype();
@@ -120,6 +142,14 @@ public abstract class Skill {
         }
 		return duration * 20; 
     }
+    
+    /**
+     * Gets the SkillEnum of the skill
+     * @return SkillEnum if not null
+     */
+    public SkillEnum getEnum() {
+    	return SkillEnum.matchSkillEnum(getName());
+    }
 	
     public boolean hasCooldown() {
     	if (getCooldown() == 0) {
@@ -134,7 +164,7 @@ public abstract class Skill {
     */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-    @interface SkillInfo {
+	public @interface SkillInfo {
         String name() default ""; //"" defaults to class name
 
         String description() default "";
@@ -146,7 +176,7 @@ public abstract class Skill {
         int cooldown() default 60;
         
         int duration() default 10;
-        
+       
     }
     
     /**
@@ -168,4 +198,5 @@ public abstract class Skill {
     		return null;
     	}
     }
+    
 }
