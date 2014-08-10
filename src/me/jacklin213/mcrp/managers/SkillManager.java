@@ -27,8 +27,9 @@ import org.bukkit.entity.Player;
 public class SkillManager {
 	
 	private final mcRP plugin;
-	private HashMap<String, HashMap<String, Long>> cooldowns = new HashMap<String, HashMap<String, Long>>();
+	
 	private HashMap<String, Skill> skills = new HashMap<String, Skill>();
+	private HashMap<String, HashMap<String, Long>> cooldowns = new HashMap<String, HashMap<String, Long>>();
 	// HashMap<classname, <skillname, skill>>
 	private HashMap<String, HashMap<String, Skill>> classSkills = new HashMap<String, HashMap<String, Skill>>();
 	//private HashMap<String, Long> cooldowns = new HashMap<String, Long>();
@@ -183,6 +184,7 @@ public class SkillManager {
 			long oldTime = this.cooldowns.get(pID).get(skillName);
 			long curTime = System.currentTimeMillis();
 			int secondsLeft = (int)((cooldown - (curTime - oldTime)/1000));
+			if (secondsLeft < 0) return 0;
 			return secondsLeft;
 		} else {
 			return 0;
