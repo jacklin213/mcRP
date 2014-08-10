@@ -28,8 +28,12 @@ public abstract class RPClass {
 		this.name = name;
 		this.aliases = aliases;
 		this.classType = classType;
+		this.registerSkills();
 	}
 	
+	/**
+	 * Developers should run {@link #addSkill(Skill)} here to register the skill
+	 */
 	abstract protected void registerSkills();
 	
 	// Skills hashmap stuff

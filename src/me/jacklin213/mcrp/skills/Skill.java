@@ -4,6 +4,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.jacklin213.mcrp.mcRP;
 import me.jacklin213.mcrp.events.SkillExecuteEvent;
@@ -11,6 +13,9 @@ import me.jacklin213.mcrp.managers.SkillManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public abstract class Skill {
@@ -178,6 +183,58 @@ public abstract class Skill {
         int duration() default 10;
        
     }
+    
+    // Other methods that maybe required in skills
+    /**
+	 * Gets a {@code List<Blocks>} within the specified radius around the specified location.
+	 * @param location The base location
+	 * @param radius The block radius from location to include within the list of blocks
+	 * @return The list of Blocks
+	 */
+	public List<Block> getBlocksAroundLocation(Location location, double radius) {
+		List<Block> blocks = new ArrayList<Block>();
+
+		int xRoot = location.getBlockX();
+		int yRoot = location.getBlockY();
+		int zRoot = location.getBlockZ();
+
+		int r = (int) radius * 4;
+
+		for (int x = xRoot - r; x <= xRoot + r; x++) {
+			for (int y = yRoot - r; y <= yRoot + r; y++) {
+				for (int z = zRoot - r; z <= zRoot + r; z++) {
+					Block block = location.getWorld().getBlockAt(x, y, z);
+					if (block.getLocation().distance(location) <= radius) {
+						blocks.add(block);
+					}
+				}
+			}
+		}
+		return blocks;
+	}
+	
+	/**
+	 * Gets a {@code List<Entity>} of entities around a specified radius from the specified area
+	 * @param location The base location
+	 * @param radius The radius of blocks to look for entities from the location
+	 * @return A list of entities around a point
+	 */
+	public List<Entity> getEntitiesAroundLocation(Location location, double radius) {
+
+		List<Entity> entities = location.getWorld().getEntities();
+		List<Entity> list = location.getWorld().getEntities();
+
+		for (Entity entity : entities) {
+			if (entity.getWorld() != location.getWorld()) {
+				list.remove(entity);
+			} else if (entity.getLocation().distance(location) > radius) {
+				list.remove(entity);
+			}
+		}
+
+		return list;
+
+	}
     
     /**
      * Enum to see if a Skill is an ACTIVE, PASSIVE, BOTH or OTHER
