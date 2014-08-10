@@ -1,5 +1,7 @@
 package me.jacklin213.mcrp.classes;
 
+import me.jacklin213.mcrp.skills.warrior.IronWill;
+
 public class Warrior extends RPClass{
 
 	public Warrior() {
@@ -8,8 +10,7 @@ public class Warrior extends RPClass{
 	
 	@Override
 	protected void registerSkills() {
-		// TODO Auto-generated method stub
-		
+		this.addSkill(new IronWill());
 	}
 
 }
