@@ -1,6 +1,9 @@
 package me.jacklin213.mcrp;
 
+import me.jacklin213.mcrp.events.SkillExecuteEvent;
 import me.jacklin213.mcrp.managers.CharacterManager;
+import me.jacklin213.mcrp.skills.Skill;
+import me.jacklin213.mcrp.skills.SkillEnum;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,34 +29,7 @@ public class mcRPListener implements Listener {
 	public mcRPListener(mcRP instance) {
 		plugin = instance;
 	}
-
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (plugin.getConfig().getBoolean("Realism") && plugin.getConfig().getBoolean("Realism.BleedMode") && event.getEntity().getType() == EntityType.PLAYER) {
-			Player player = (Player) event.getEntity();
-			if ((player.getHealth() <= 8) && !player.hasPermission("mcrp.realism.exempt")) {
-				player.sendMessage(mcRP.getChatName() + ChatColor.YELLOW + " You are" + ChatColor.RED + " bleeding!");
-				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
-			}
-		}
-	}
-
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onJoin(PlayerJoinEvent event) {
-		if (this.plugin.getConfig().getBoolean("Motd.Enabled")){
-			event.setJoinMessage(mcRP.getChatName() + this.plugin.getConfig().getString("Motd.Message"));
-		}
-		// Loads Character info from database
-		CharacterManager.loadCharacter(event.getPlayer());
-	}
 	
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onQuit(PlayerQuitEvent event) {
-		CharacterManager.saveCharacter(event.getPlayer());
-	}
-
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Block block = event.getBlock();
@@ -81,6 +57,29 @@ public class mcRPListener implements Listener {
 			}
 		}
 	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+		if (plugin.getConfig().getBoolean("Realism") && plugin.getConfig().getBoolean("Realism.BleedMode") && event.getEntity().getType() == EntityType.PLAYER) {
+			Player player = (Player) event.getEntity();
+			if ((player.getHealth() <= 8) && !player.hasPermission("mcrp.realism.exempt")) {
+				player.sendMessage(mcRP.getChatName() + ChatColor.YELLOW + " You are" + ChatColor.RED + " bleeding!");
+				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 1));
+			}
+		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onJoin(PlayerJoinEvent event) {
+		if (this.plugin.getConfig().getBoolean("Motd.Enabled")){
+			event.setJoinMessage(mcRP.getChatName() + this.plugin.getConfig().getString("Motd.Message"));
+		}
+		// Loads Character info from database
+		CharacterManager.loadCharacter(event.getPlayer());
+	}
+	
 	/*
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onPlayerInteract(PlayerInteractEvent e) {
@@ -141,6 +140,19 @@ public class mcRPListener implements Listener {
 					event.setCancelled(true);
 				}
 			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onQuit(PlayerQuitEvent event) {
+		CharacterManager.saveCharacter(event.getPlayer());
+	}
+	
+	@EventHandler(ignoreCancelled = true)
+	public void onSkillExecute(SkillExecuteEvent event) {
+		Skill skill = event.getSkill();
+		if (event.getSkill().getEnum() == SkillEnum.MOBMAGNET) {
+			// Cancel the targeting when time is over le.setTarget(null);
 		}
 	}
 }
