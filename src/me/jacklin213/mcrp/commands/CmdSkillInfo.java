@@ -39,11 +39,11 @@ public class CmdSkillInfo extends SubCommand {
 		sender.sendMessage(GOLD + "========[" + YELLOW + skill.getName() + GOLD + "]========" );
 		sender.sendMessage(GOLD + "Description: " + AQUA + skill.getDescription());
 		sender.sendMessage(GOLD + "Usage: " + YELLOW + skill.getUsage());
-		sender.sendMessage(GOLD + "SkillType: " + AQUA + skill.getSkillType().toString());
+		sender.sendMessage(GOLD + "SkillType: " + AQUA + skill.getType().toString());
 		if (skill.hasCooldown()) {
 			sender.sendMessage(GOLD + "Cooldown: " + GREEN + skill.getCooldown());
 		}
-		if (skill.getSkillType() == SkillType.PASSIVE || skill.getSkillType() == SkillType.BOTH) {
+		if (skill.getType() == SkillType.PASSIVE || skill.getType() == SkillType.BOTH) {
 			sender.sendMessage(GOLD + "Duration: " + GREEN + skill.getDuration() / 20);
 		}
 	}

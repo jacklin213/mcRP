@@ -32,13 +32,16 @@ public class CmdChoose extends SubCommand {
 				sender.sendMessage(CHAT_NAME + PLAYER_ONLY);
 			}
 			String className = args[0];
-			Character character = CharacterManager.getCharacter(((Player) sender).getUniqueId().toString());
+			Character character = CharacterManager.getCharacter(((Player) sender));
 			RPClass rpClass = plugin.RPCM.getRPClass(className);
-			if (character == null) sender.sendMessage(NULL_CHARACTER); plugin.log.warning("Error on loading Character for command /class choose");
-			if (rpClass == null) sender.sendMessage(NO_RPCLASS);
+			if (character == null) {sender.sendMessage(NULL_CHARACTER); plugin.log.warning("Error on loading Character for command /class choose"); return;}
+			if (rpClass == null) {sender.sendMessage(NO_RPCLASS); return;}
 			if (character.getRPClass().getClassType() == ClassType.NOVICE) {
 				character.setRPClass(className);
-				sender.sendMessage(YELLOW + "You have choosen the class" + GREEN + rpClass.getName());
+				sender.sendMessage(YELLOW + "You have choosen the class " + GREEN + rpClass.getName());
+			} else {
+				sender.sendMessage(RED + "You have already choosen the class " + GREEN + character.getRPClassName());
+				sender.sendMessage(RED + "You cant just choose another one.");
 			}
 		} else {
 			sendHelp(sender);

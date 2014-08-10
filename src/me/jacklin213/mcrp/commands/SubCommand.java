@@ -39,10 +39,10 @@ public abstract class SubCommand {
     public static final ChatColor AQUA = ChatColor.AQUA;
     public static final Server SERVER = Bukkit.getServer();
     public static final String NO_PERMS = RED + "Insufficient Permissions.";
-    public static final String NO_RPCLASS = RED + "Class doesn't exist. To see a list of avalible classes do /classes list";
+    public static final String NO_RPCLASS = RED + "Class doesn't exist. To see a list of avalible classes do /class list";
     public static final String PLAYER_ONLY = RED + "This command can only be used by players.";
     public static final String NULL_CHARACTER = RED + "Error loading character. Please contact your server owner!";
-    public static final String NULL_SKILL = RED + "That Skill does not exist";
+    public static final String NULL_SKILL = RED + "Either that Skill does not exist or your class doesnt allow that skill";
     
     private final String name;
     private final String command;

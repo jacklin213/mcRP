@@ -33,7 +33,7 @@ public class CmdMotd extends SubCommand {
 					sb.append(args[i]).append(" ");
 				}
 				sender.sendMessage(mcRP.getChatName() + YELLOW + "The message of the day has been changed to: " + WHITE + ChatColor.translateAlternateColorCodes('&', sb.toString()));
-				plugin.getConfig().set("Motd.Message", ChatColor.translateAlternateColorCodes('&', sb.toString()));
+				plugin.getConfig().set("Motd.Message", sb.toString());
 				plugin.saveConfig();
 			} else {
 				sender.sendMessage(NO_PERMS);
