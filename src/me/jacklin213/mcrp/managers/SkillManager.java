@@ -2,8 +2,13 @@ package me.jacklin213.mcrp.managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
 
+import me.jacklin213.mcrp.Character;
 import me.jacklin213.mcrp.mcRP;
+import me.jacklin213.mcrp.classes.ClassType;
+import me.jacklin213.mcrp.classes.RPClass;
 import me.jacklin213.mcrp.skills.Bless;
 import me.jacklin213.mcrp.skills.Confuse;
 import me.jacklin213.mcrp.skills.Gills;
@@ -24,25 +29,46 @@ public class SkillManager {
 	private final mcRP plugin;
 	private HashMap<String, HashMap<String, Long>> cooldowns = new HashMap<String, HashMap<String, Long>>();
 	private HashMap<String, Skill> skills = new HashMap<String, Skill>();
+	// HashMap<classname, <skillname, skill>>
+	private HashMap<String, HashMap<String, Skill>> classSkills = new HashMap<String, HashMap<String, Skill>>();
 	//private HashMap<String, Long> cooldowns = new HashMap<String, Long>();
 
 	public SkillManager(mcRP instance) {
 		plugin = instance;
 		this.addSkills();
+		this.addClassSkills();
+		plugin.log.info("Skills and Class Skills have been loaded");
 	}
 
 	private void addSkills() {
 		//Note: These skill names have to be in lower case.
 		//As of v1.3.1 BETA 3 the above can be ignored
-		this.registerSkills(new Bless(plugin));
-		this.registerSkills(new Confuse(plugin));
-		this.registerSkills(new Gills(plugin));
-		this.registerSkills(new MartyBoom(plugin));
-		this.registerSkills(new Might(plugin));
-		this.registerSkills(new Stealth(plugin));
-		this.registerSkills(new SuperJump(plugin));
-		this.registerSkills(new SuperPunch(plugin));
-		this.registerSkills(new SuperSpeed(plugin));
+		this.registerSkill(new Bless());
+		this.registerSkill(new Confuse());
+		this.registerSkill(new Gills());
+		this.registerSkill(new MartyBoom());
+		this.registerSkill(new Might());
+		this.registerSkill(new Stealth());
+		this.registerSkill(new SuperJump());
+		this.registerSkill(new SuperPunch());
+		this.registerSkill(new SuperSpeed());
+	}
+	
+	private void addClassSkills() {
+		Map<String, RPClass> map = plugin.RPCM.getRPClasses();
+		if (map == null) plugin.disablePlugin(Level.SEVERE, "Unable to load ClassSkills. NullPointerExecption");
+		if (plugin.getDebug()) plugin.log.info("Class names: ");
+		for (String className : map.keySet()) {
+			if (plugin.getDebug()) plugin.log.info(className);
+			classSkills.put(className, map.get(className).getSkills());
+		}
+		//Debug
+		if (plugin.getDebug()) {
+			plugin.log.info("Skill names: ");
+			for (String skillName : map.get("Warrior").getSkills().keySet()) {
+				plugin.log.info(skillName);
+			}
+		}
 	}
 	
 	public Skill getSkill(String skillName) {
@@ -54,11 +80,45 @@ public class SkillManager {
 		return null;
 	}
 	
-	public boolean executeSkill(Player player, String skillName, String args[]){
-		Skill skill = getSkill(skillName);
+	public Skill getClassSkill(String className, String skillName) {
+		for (String classKey : classSkills.keySet()) {
+			if (classKey.equalsIgnoreCase(className)) {
+				for (String skillKey : classSkills.get(classKey).keySet()) {
+					if (skillKey.equalsIgnoreCase(skillName)) {
+						return classSkills.get(classKey).get(skillKey);
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public boolean executeSkill(Player player, String skillName, String args[]) {
+		Character character = CharacterManager.getCharacter(player);
+		Skill skill;
+		if (character == null) {
+			plugin.log.severe("Error in loading character for " + player.getName() + " while executing skill " + skillName);
+			return false;
+		}
+		// If players have a class are they skill allowed legacy moves
+		if (plugin.getConfig().getBoolean("AllowLegacy")) {
+			skill = getSkill(skillName);
+			if (skill == null) skill = getClassSkill(character.getRPClassName(), skillName);
+		} else {
+			if (character.getClassType() == ClassType.LEGACY || character.getClassType() == ClassType.NOVICE) {
+				skill = getSkill(skillName);
+			} else {
+				skill = getClassSkill(character.getRPClassName(), skillName);
+			}
+		}
 		if (skill == null) return false;
-		skill.exceute(player, args);
+		skill.run(player, args);
 		return true;
+		
+	}
+	
+	public HashMap<String, HashMap<String, Skill>> getClassSkills() {
+		return this.classSkills;
 	}
 	
 	public HashMap<String, Skill> getSkills() {
@@ -137,7 +197,7 @@ public class SkillManager {
 		return false;
 	}
 	
-	private void registerSkills(Skill skill) {
+	private void registerSkill(Skill skill) {
 		skills.put(skill.getName(), skill);
 	}
 	

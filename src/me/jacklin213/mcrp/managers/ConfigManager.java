@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import me.jacklin213.mcrp.mcRP;
@@ -50,6 +51,7 @@ public class ConfigManager {
 	public void updateCheckConfig() {
 		// Only have this code for v1.3. DELETE RIGHT AWAY, THIS CAUSES CONFIG TO DELETE EVERY START UP
 		File file = new File(plugin.getDataFolder(), "config.yml");
+		String reason;
 		if (file.exists()) {
 			YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 			if (config != null) {
@@ -70,9 +72,9 @@ public class ConfigManager {
 						updateConfig();
 					}
 					if (configVersion > pluginVersion) {
-						log.severe("Config version is higher than plugin version");
-						log.severe("Please delete your config and let it regenerate to prevent errors");
-						plugin.disablePlugin();
+						reason = "Config version is higher than plugin version \n" +
+								"Please delete your config and let it regenerate to prevent errors";
+						plugin.disablePlugin(Level.SEVERE, reason);
 					}
 					if (configVersion == pluginVersion) {
 						//log.info("Config file up to date!, Configuration loaded");
@@ -80,9 +82,11 @@ public class ConfigManager {
 							if (config.getInt("Beta") != -1) {
 								int configVersionBeta = config.getInt("Beta");
 								if (!plugin.getDescription().getVersion().contains("BETA")) {
-									log.severe("Config version has BETA but plugin doesnt");
-									log.severe("Please delete your config and let it regenerate to prevent errors");
-									plugin.disablePlugin();
+									//log.severe("Config version has BETA but plugin doesnt");
+									//log.severe("Please delete your config and let it regenerate to prevent errors");
+									reason = "Config version has BETA but plugin doesnt \n" +
+											"Please delete your config and let it regenerate to prevent errors";
+									plugin.disablePlugin(Level.SEVERE, reason);
 									return;
 								}
 								int pluginVersionBeta = Integer.parseInt(plugin.getDescription().getVersion().substring(11));
@@ -91,24 +95,30 @@ public class ConfigManager {
 									updateConfig();
 								}
 								if (configVersion > pluginVersion) {
-									log.severe("Config BETA is higher than plugin BETA");
-									log.severe("Please delete your config and let it regenerate to prevent errors");
-									plugin.disablePlugin();
+								//	log.severe("Config BETA is higher than plugin BETA");
+								//	log.severe("Please delete your config and let it regenerate to prevent errors");
+									reason = "Config BETA is higher than plugin BETA \n" + 
+											"Please delete your config and let it regenerate to prevent errors";
+									plugin.disablePlugin(Level.SEVERE, reason);
 								}
 								if (configVersionBeta == pluginVersionBeta) {
 									log.info("Config file up to date!, BETA configuration loaded");
 								}
 							}
 						} else {
-							log.severe("Unable to find path: Beta in config.yml");
-							log.severe("Delete your config.yml if you cannot find 'Beta'");
-							plugin.disablePlugin();
+							//log.severe("Unable to find path: Beta in config.yml");
+							//log.severe("Delete your config.yml if you cannot find 'Beta'");
+							reason = "Unable to find path: Beta in config.yml \n" +
+									"Delete your config.yml if you cannot find 'Beta'";
+							plugin.disablePlugin(Level.SEVERE, reason);
 						}
 					}
 				} else {
-					log.severe("Unable to find path: Version in config.yml");
-					log.severe("Delete your config.yml if you cannot find 'Version'");
-					plugin.disablePlugin();
+					//log.severe("Unable to find path: Version in config.yml");
+					//log.severe("Delete your config.yml if you cannot find 'Version'");
+					reason = "Unable to find path: Version in config.yml \n" +
+							"Delete your config.yml if you cannot find 'Version'";	
+					plugin.disablePlugin(Level.SEVERE, reason);
 				}
 			}
 		}

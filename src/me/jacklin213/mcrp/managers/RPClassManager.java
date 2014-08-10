@@ -2,6 +2,7 @@ package me.jacklin213.mcrp.managers;
 
 import java.util.HashMap;
 
+import me.jacklin213.mcrp.mcRP;
 import me.jacklin213.mcrp.classes.Bowman;
 import me.jacklin213.mcrp.classes.Mage;
 import me.jacklin213.mcrp.classes.Novice;
@@ -17,6 +18,7 @@ public class RPClassManager {
 		this.registerRPClass(new Bowman());
 		this.registerRPClass(new Mage());
 		this.registerRPClass(new Warrior());
+		mcRP.getPluginInstance().log.info("RPClasses registered and loaded");
 	}
 	
 	private void registerRPClass(RPClass rpClass) {
@@ -33,10 +35,11 @@ public class RPClassManager {
 	}
 	
 	public RPClass getRPClass(String name) {
-		if (classes.containsKey(name)) {
-			return classes.get(name);
-		} else {
-			return null;
+		for (String className : classes.keySet()) {
+			if (className.equalsIgnoreCase(name)) {
+				return classes.get(className);
+			}
 		}
+		return null;
 	}
 }

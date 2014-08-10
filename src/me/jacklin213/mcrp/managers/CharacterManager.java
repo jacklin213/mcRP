@@ -32,6 +32,10 @@ public class CharacterManager {
 		plugin.log.info("Created new Character for " + player.getName());
 	}
 	
+	public static Character getCharacter(Player player) {
+		return getCharacter(player.getUniqueId().toString());
+	}
+	
 	public static Character getCharacter(String uuid) {
 		if (characters.containsKey(uuid)) {
 			return characters.get(uuid);
@@ -55,6 +59,12 @@ public class CharacterManager {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public static void reloadCharacters() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			loadCharacter(player);
 		}
 	}
 	

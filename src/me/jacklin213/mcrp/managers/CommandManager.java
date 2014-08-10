@@ -73,11 +73,11 @@ public class CommandManager implements CommandExecutor {
         	}
         }
         if (commandLabel.equalsIgnoreCase("skillinfo")) {
-        	commands.get(5).run(sender, args);
+        	commands.get(3).run(sender, args);
         	return true;
         }
         if (commandLabel.equalsIgnoreCase("skills")) {
-        	commands.get(6).run(sender, args);
+        	commands.get(4).run(sender, args);
         	return true;
         }
         if (commandLabel.equalsIgnoreCase("binds")) {
@@ -99,12 +99,15 @@ public class CommandManager implements CommandExecutor {
     private void registerSubCommands() {
     	commands.add(new CmdHelp()); //0
     	// Index of 1 starting bellow
+    	// Commands with Aliases
     	commands.add(new CmdBinds()); //1
-    	commands.add(new CmdInfo(plugin));
+    	commands.add(new CmdClass(plugin));
+    	commands.add(new CmdSkillInfo(plugin));  
+        commands.add(new CmdSkills(plugin));
+        // Normal subcommands
+    	commands.add(new CmdInfo(plugin)); //5
     	commands.add(new CmdMotd(plugin));
         commands.add(new CmdReload(plugin));
-        commands.add(new CmdSkillInfo(plugin)); //5
-        commands.add(new CmdSkills(plugin));
     }
  
     private void registerClassCommands() {
