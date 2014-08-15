@@ -22,15 +22,15 @@ import org.bukkit.entity.Player;
 
 public class PowerSlash extends Skill {
 	
-	private int damage;
-	private int radius;
+	private double damage;
+	private double radius;
 	private int maxMob;
 	private boolean monstersOnly;
 	
 	@Override
 	protected void initiate() {
-		damage = plugin.getConfig().getInt("Classes.Warrior.PowerSlash.Damage");
-		radius = plugin.getConfig().getInt("Classes.Warrior.PowerSlash.Radius");
+		radius = plugin.getConfig().getDouble("Classes.Warrior.PowerSlash.Radius");
+		damage = plugin.getConfig().getDouble("Classes.Warrior.PowerSlash.Damage");
 		maxMob = plugin.getConfig().getInt("Classes.Warrior.PowerSlash.MaxMobHit");
 		monstersOnly = plugin.getConfig().getBoolean("Classes.Warrior.PowerSlash.MonstersOnly");
 	}

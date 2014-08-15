@@ -22,11 +22,11 @@ import org.bukkit.entity.Player;
 
 public class MonsterMagnet extends Skill {
 
-	private int radius;
+	private double radius;
 	
 	@Override
 	protected void initiate() {
-		radius = plugin.getConfig().getInt("Classes.Warrior.MonsterMagnet.Radius");
+		radius = plugin.getConfig().getDouble("Classes.Warrior.MonsterMagnet.Radius");
 	}
 	
 	@Override
