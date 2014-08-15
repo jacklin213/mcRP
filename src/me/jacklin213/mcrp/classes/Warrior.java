@@ -2,6 +2,7 @@ package me.jacklin213.mcrp.classes;
 
 import me.jacklin213.mcrp.skills.warrior.IronWill;
 import me.jacklin213.mcrp.skills.warrior.MonsterMagnet;
+import me.jacklin213.mcrp.skills.warrior.PowerSlash;
 
 public class Warrior extends RPClass{
 
@@ -13,6 +14,7 @@ public class Warrior extends RPClass{
 	protected void registerSkills() {
 		this.addSkill(new IronWill());
 		this.addSkill(new MonsterMagnet());
+		this.addSkill(new PowerSlash());
 	}
 
 }

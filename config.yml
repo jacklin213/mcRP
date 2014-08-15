@@ -104,12 +104,21 @@ Classes:
   Warrior:
     IronWill:
       Cooldown: 60
-      Durruation: 10
+      Duruation: 10
     MonsterMagnet:
       Cooldown: 60
-      Durruation: 10
+      Duruation: 10
       # The block radius at which all hostile mobs will be attracted to player when skill is used
       Radius: 10
+    PowerSlash:
+      Cooldown: 60
+      Damage: 5
+      Duration: 10
+      # Maximum amount of mobs hit by this skill
+      MaxMobHit: 3
+      # Does this move only damage mosters or any mob in general
+      MonstersOnly: true
+      Radius: 3
 # Setting allow legacy to true allows the use of mcrp v1.3.1 skills
 # This setting comes into effect after players choose a class
 # This setting does not effect players which do not have a class

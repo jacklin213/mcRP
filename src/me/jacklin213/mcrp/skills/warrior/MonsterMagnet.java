@@ -25,14 +25,23 @@ public class MonsterMagnet extends Skill {
 	private int radius;
 	
 	@Override
-	public void execute(Player player, String[] args) {
+	protected void initiate() {
 		radius = plugin.getConfig().getInt("Classes.Warrior.MonsterMagnet.Radius");
+	}
+	
+	@Override
+	public void execute(Player player, String[] args) {
 		if (plugin.SM.isCoolingDown(player, this.getName())) {
 			player.sendMessage(mcRP.getChatName() + RED + "You still have a " + GOLD + plugin.SM.getSecondsLeft(player, this.getCooldown(player), this.getName()) + RED + " second cooldown");
 		} else {
 			plugin.SM.scheduleCooldown(player, this.getCooldown(player), this.getName()); 
 			player.sendMessage(mcRP.getChatName() + YELLOW + "You have activated your " + GREEN  + this.getName() + YELLOW + " ability");
 			List<Entity> entities = getEntitiesAroundLocation(player.getLocation(), radius);
+			if (entities.contains(player)) entities.remove(player);
+			if (entities.size() == 0) {
+				player.sendMessage(mcRP.getChatName() + RED + "There are no mobs around you!");
+				return;
+			}
 			for (final Entity mob : entities) {
 				if (mob instanceof Monster) {
 					((Monster) mob).setTarget(player);
