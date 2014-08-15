@@ -2,8 +2,6 @@ package me.jacklin213.mcrp;
 
 import me.jacklin213.mcrp.events.SkillExecuteEvent;
 import me.jacklin213.mcrp.managers.CharacterManager;
-import me.jacklin213.mcrp.skills.Skill;
-import me.jacklin213.mcrp.skills.SkillEnum;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

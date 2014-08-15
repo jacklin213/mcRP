@@ -16,6 +16,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 public abstract class Skill {
@@ -44,6 +45,9 @@ public abstract class Skill {
 	/**
 	 * Runs a skill for the specified player. Calls a new {@link SkillExecuteEvent}
 	 * <p>
+	 * This method also runs the {@link #initiate()} method which developers
+	 * can use to initiate variables before executing their skill.
+	 * <br></br>
 	 * This method also runs the {@link #execute(Player, String[])} method which developers
 	 * use to tell what a skill does upon executing.
 	 * </p>
@@ -53,6 +57,7 @@ public abstract class Skill {
 	public void run(Player player, String args[]) {
 		SkillExecuteEvent event = new SkillExecuteEvent(player, this);
 		Bukkit.getServer().getPluginManager().callEvent(event);
+		this.initiate();
 		this.execute(player, args);
 	}
 	
@@ -62,6 +67,16 @@ public abstract class Skill {
 	 * @param args The arguments from the command if needed
 	 */
 	abstract public void execute(Player player, String args[]);
+	
+	/**
+	 * Method which allows developers to initiate their variables.
+	 * <p>
+	 * The default method does nothing
+	 * <br></br>
+	 * Called in {@link #run(Player, String[])}
+	 * </p>
+	 */
+	protected void initiate() {}
 	
 	/**
      * Gets the name of this Skill
@@ -223,6 +238,29 @@ public abstract class Skill {
 
 		List<Entity> entities = location.getWorld().getEntities();
 		List<Entity> list = location.getWorld().getEntities();
+
+		for (Entity entity : entities) {
+			if (entity.getWorld() != location.getWorld()) {
+				list.remove(entity);
+			} else if (entity.getLocation().distance(location) > radius) {
+				list.remove(entity);
+			}
+		}
+
+		return list;
+
+	}
+	
+	/**
+	 * Gets a {@code List<LivingEntity>} of entities around a specified radius from the specified area
+	 * @param location The base location
+	 * @param radius The radius of blocks to look for livining entities from the location
+	 * @return A list of living entities around a point
+	 */
+	public List<LivingEntity> getLivingEntitiesAroundLocation(Location location, double radius) {
+
+		List<LivingEntity> entities = location.getWorld().getLivingEntities();
+		List<LivingEntity> list = location.getWorld().getLivingEntities();
 
 		for (Entity entity : entities) {
 			if (entity.getWorld() != location.getWorld()) {
