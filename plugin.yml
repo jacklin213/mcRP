@@ -41,6 +41,9 @@ permissions:
   mcrp.class.choose:
     description: Allows player to choose a class
     default: true    
+  mcrp.class.choose.admin:
+    description: Allows player to override another players class
+    default: op
   mcrp.diseases.dehydration.exempt: 
     description: Player is exempt from dehydration
     default: false
