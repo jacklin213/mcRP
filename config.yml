@@ -101,6 +101,12 @@ Skills:
 # Permissions are documented on the plugin page
 # http://dev.bukkit.org/bukkit-plugins/mcrp/
 Classes:
+  Bowman:
+    Knockback:
+      Cooldown: 60
+      Damage: 2
+      KnockbackRange: 2 
+      Radius: 3
   Warrior:
     IronWill:
       Cooldown: 60
@@ -113,11 +119,10 @@ Classes:
     PowerSlash:
       Cooldown: 60
       Damage: 5
-      Duration: 10
       # Maximum amount of mobs hit by this skill
       MaxMobHit: 3
       # Does this move only damage mosters or any mob in general
-      MonstersOnly: true
+      MonstersOnly: false
       Radius: 3
 # Setting allow legacy to true allows the use of mcrp v1.3.1 skills
 # This setting comes into effect after players choose a class
