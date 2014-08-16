@@ -18,6 +18,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 public abstract class Skill {
 	
@@ -121,7 +122,7 @@ public abstract class Skill {
     }
     
     /**
-     * Gets the cooldown of the Skill
+     * Gets the default cooldown of the Skill
      *
      * @return the cooldown in seconds
      */
@@ -145,6 +146,22 @@ public abstract class Skill {
         	cooldown = plugin.getConfig().getInt("Skills." + info.name() + ".Cooldown");
         	return cooldown;
         }
+        if (plugin.getConfig().contains("Classes.Bowman." + info.name() + ".Cooldown")) {
+        	cooldown = plugin.getConfig().getInt("Classes.Bowman." + info.name() + ".Cooldown");
+        	return cooldown;
+        }
+        if (plugin.getConfig().contains("Classes.Mage." + info.name() + ".Cooldown")) {
+        	cooldown = plugin.getConfig().getInt("Classes.Warrior." + info.name() + ".Cooldown");
+        	return cooldown;
+        }
+        if (plugin.getConfig().contains("Classes.Theif." + info.name() + ".Cooldown")) {
+        	cooldown = plugin.getConfig().getInt("Classes.Theif." + info.name() + ".Cooldown");
+        	return cooldown;
+        }
+        if (plugin.getConfig().contains("Classes.Warrior." + info.name() + ".Cooldown")) {
+        	cooldown = plugin.getConfig().getInt("Classes.Warrior." + info.name() + ".Cooldown");
+        	return cooldown;
+        }
 		return cooldown; 
     }
     
@@ -160,7 +177,23 @@ public abstract class Skill {
         	duration = plugin.getConfig().getInt("Skills." + info.name() + ".Duration");
         	return duration * 20;
         }
-		return duration * 20; 
+        if (plugin.getConfig().contains("Classes.Bowman." + info.name() + ".Duration")) {
+        	duration = plugin.getConfig().getInt("Classes.Bowman." + info.name() + ".Duration");
+        	return duration * 20;
+        }
+        if (plugin.getConfig().contains("Classes.Mage." + info.name() + ".Duration")) {
+        	duration = plugin.getConfig().getInt("Classes.Warrior." + info.name() + ".Duration");
+        	return duration * 20;
+        }
+        if (plugin.getConfig().contains("Classes.Theif." + info.name() + ".Duration")) {
+        	duration = plugin.getConfig().getInt("Classes.Theif." + info.name() + ".Duration");
+        	return duration * 20;
+        }
+        if (plugin.getConfig().contains("Classes.Warrior." + info.name() + ".Duration")) {
+        	duration = plugin.getConfig().getInt("Classes.Warrior." + info.name() + ".Duration");
+        	return duration * 20;
+        }
+        return duration * 20; 
     }
     
     /**
@@ -229,7 +262,34 @@ public abstract class Skill {
 	}
 	
 	/**
-	 * Gets a {@code List<Entity>} of entities around a specified radius from the specified area
+	 * Gets the distance from a point in a straight line.
+	 * @param line The direction of the line
+	 * @param pointonline The point on the line
+	 * @param point The farthest point on the line
+	 * @return
+	 */
+	public double getDistanceFromLine(Vector line, Location pointonline, Location point) {
+
+		Vector AP = new Vector();
+		double Ax, Ay, Az;
+		Ax = pointonline.getX();
+		Ay = pointonline.getY();
+		Az = pointonline.getZ();
+
+		double Px, Py, Pz;
+		Px = point.getX();
+		Py = point.getY();
+		Pz = point.getZ();
+
+		AP.setX(Px - Ax);
+		AP.setY(Py - Ay);
+		AP.setZ(Pz - Az);
+
+		return (AP.crossProduct(line).length()) / (line.length());
+	}
+	
+	/**
+	 * Gets a {@code List<Entity>} of entities around a specified radius from the specified area.
 	 * @param location The base location
 	 * @param radius The radius of blocks to look for entities from the location
 	 * @return A list of entities around a point
@@ -252,7 +312,7 @@ public abstract class Skill {
 	}
 	
 	/**
-	 * Gets a {@code List<LivingEntity>} of entities around a specified radius from the specified area
+	 * Gets a {@code List<LivingEntity>} of entities around a specified radius from the specified area.
 	 * @param location The base location
 	 * @param radius The radius of blocks to look for livining entities from the location
 	 * @return A list of living entities around a point
@@ -272,6 +332,39 @@ public abstract class Skill {
 
 		return list;
 
+	}
+	
+	/**
+	 * Gets the entity targeted by the Player.
+	 * @param player The player to cast this method from
+	 * @param range The range to include
+	 * @param avoid Entities to avoid
+	 * @return A list of entities that are targeted
+	 */
+	public Entity getTargetEntity(Player player, double range, List<Entity> avoid) {
+		double longestr = range + 1;
+		Entity target = null;
+		Location eyeloc = player.getEyeLocation();
+		Vector direction = player.getEyeLocation().getDirection().normalize();
+		for (Entity entity : eyeloc.getWorld().getEntities()) {
+			if (avoid != null && avoid.contains(entity))
+				continue;
+			if (entity.getLocation().distance(eyeloc) < longestr
+					&& getDistanceFromLine(direction, eyeloc, entity.getLocation()) < 2
+					&& (entity instanceof LivingEntity)
+					&& entity.getEntityId() != player.getEntityId()
+					&& entity.getLocation().distance(eyeloc.clone().add(direction)) < 
+					entity.getLocation().distance(eyeloc.clone().add(direction.clone().multiply(-1)))) {
+				target = entity;
+				longestr = entity.getLocation().distance(eyeloc);
+			}
+		}
+		return target;
+	}
+	
+	public void knockbackEntity(Entity entity, double damage, double range) {
+		entity.setVelocity(entity.getVelocity().multiply(-range));
+		((LivingEntity) entity).damage(damage);
 	}
     
     /**
